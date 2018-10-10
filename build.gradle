@@ -30,12 +30,6 @@ install {
     }
 }
 
-task execute(type:JavaExec) {
-   main = System.getProperty('mainClass')
-   classpath = sourceSets.main.runtimeClasspath
-}
-
-
 dependencies {
     compile 'io.swagger:swagger-annotations:1.5.15'
     compile 'com.squareup.okhttp:okhttp:2.7.5'
