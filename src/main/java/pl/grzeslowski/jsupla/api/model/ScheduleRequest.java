@@ -13,16 +13,16 @@
 
 package pl.grzeslowski.jsupla.api.model;
 
-import java.util.Objects;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
+
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * ScheduleRequest
@@ -93,7 +93,7 @@ public class ScheduleRequest {
   private String timeExpression = null;
 
   @SerializedName("actionParam")
-  private ERRORUNKNOWN actionParam = null;
+  private ScheduleRequestActionParam actionParam = null;
 
   @SerializedName("dateStart")
   private OffsetDateTime dateStart = null;
@@ -179,7 +179,7 @@ public class ScheduleRequest {
     this.timeExpression = timeExpression;
   }
 
-  public ScheduleRequest actionParam(ERRORUNKNOWN actionParam) {
+  public ScheduleRequest actionParam(ScheduleRequestActionParam actionParam) {
     this.actionParam = actionParam;
     return this;
   }
@@ -189,11 +189,11 @@ public class ScheduleRequest {
    * @return actionParam
   **/
   @ApiModelProperty(example = "", value = "")
-  public ERRORUNKNOWN getActionParam() {
+  public ScheduleRequestActionParam getActionParam() {
     return actionParam;
   }
 
-  public void setActionParam(ERRORUNKNOWN actionParam) {
+  public void setActionParam(ScheduleRequestActionParam actionParam) {
     this.actionParam = actionParam;
   }
 

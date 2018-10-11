@@ -13,27 +13,15 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
-import pl.grzeslowski.jsupla.api.ApiCallback;
-import pl.grzeslowski.jsupla.api.ApiClient;
-import pl.grzeslowski.jsupla.api.ApiException;
-import pl.grzeslowski.jsupla.api.ApiResponse;
-import pl.grzeslowski.jsupla.api.Configuration;
-import pl.grzeslowski.jsupla.api.Pair;
-import pl.grzeslowski.jsupla.api.ProgressRequestBody;
-import pl.grzeslowski.jsupla.api.ProgressResponseBody;
-
 import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
+import pl.grzeslowski.jsupla.api.*;
 import pl.grzeslowski.jsupla.api.model.Channel;
 import pl.grzeslowski.jsupla.api.model.ChannelExecuteActionRequest;
 import pl.grzeslowski.jsupla.api.model.ChannelUpdateRequest;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import java.io.File;
 import pl.grzeslowski.jsupla.api.model.Schedule;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -22,6 +22,10 @@ import okio.Okio;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import pl.grzeslowski.jsupla.api.auth.ApiKeyAuth;
+import pl.grzeslowski.jsupla.api.auth.Authentication;
+import pl.grzeslowski.jsupla.api.auth.HttpBasicAuth;
+import pl.grzeslowski.jsupla.api.auth.OAuth;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -44,11 +48,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import pl.grzeslowski.jsupla.api.auth.Authentication;
-import pl.grzeslowski.jsupla.api.auth.HttpBasicAuth;
-import pl.grzeslowski.jsupla.api.auth.ApiKeyAuth;
-import pl.grzeslowski.jsupla.api.auth.OAuth;
 
 public class ApiClient {
 
@@ -90,6 +89,7 @@ public class ApiClient {
         // Setup authentications (key: authentication name, value: authentication).
         authentications = new HashMap<String, Authentication>();
         authentications.put("password", new OAuth());
+//        authentications.put("http", new HttpBasicAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
     }

@@ -13,13 +13,12 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import pl.grzeslowski.jsupla.api.ApiException;
 import pl.grzeslowski.jsupla.api.model.ChannelExecuteActionRequest;
 import pl.grzeslowski.jsupla.api.model.ChannelGroup;
 import pl.grzeslowski.jsupla.api.model.ChannelGroupRequest;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import org.junit.Test;
-import org.junit.Ignore;
 
 import java.util.List;
 

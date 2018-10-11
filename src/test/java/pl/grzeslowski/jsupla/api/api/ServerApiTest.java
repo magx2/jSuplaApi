@@ -13,10 +13,10 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
-import pl.grzeslowski.jsupla.api.ApiException;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
+import pl.grzeslowski.jsupla.api.ApiException;
+import pl.grzeslowski.jsupla.api.model.ServerInfo;
 
 /**
  * API tests for ServerApi
@@ -37,7 +37,7 @@ public class ServerApiTest {
      */
     @Test
     public void getServerInfoTest() throws ApiException {
-        ERRORUNKNOWN response = api.getServerInfo();
+        ServerInfo response = api.getServerInfo();
 
         // TODO: test validations
     }

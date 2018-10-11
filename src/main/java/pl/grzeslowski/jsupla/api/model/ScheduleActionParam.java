@@ -1,4 +1,4 @@
 package pl.grzeslowski.jsupla.api.model;
 
-public class ERRORUNKNOWN {
+public class ScheduleActionParam {
 }

@@ -13,18 +13,12 @@
 
 package pl.grzeslowski.jsupla.api.model;
 
-import java.util.Objects;
-
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
-import pl.grzeslowski.jsupla.api.model.ChannelFunction;
-import pl.grzeslowski.jsupla.api.model.ChannelType;
-import pl.grzeslowski.jsupla.api.model.Device;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import pl.grzeslowski.jsupla.api.model.Location;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Channel
@@ -86,7 +80,7 @@ public class Channel {
   private Boolean connected = null;
 
   @SerializedName("state")
-  private ERRORUNKNOWN state = null;
+  private ChannelState state = null;
 
   @SerializedName("supportedFunctions")
   private List<ChannelFunction> supportedFunctions = null;
@@ -415,7 +409,7 @@ public class Channel {
     this.connected = connected;
   }
 
-  public Channel state(ERRORUNKNOWN state) {
+  public Channel state(ChannelState state) {
     this.state = state;
     return this;
   }
@@ -425,11 +419,11 @@ public class Channel {
    * @return state
   **/
   @ApiModelProperty(example = "", value = "The channel's state. The value and the format is dependend on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).")
-  public ERRORUNKNOWN getState() {
+  public ChannelState getState() {
     return state;
   }
 
-  public void setState(ERRORUNKNOWN state) {
+  public void setState(ChannelState state) {
     this.state = state;
   }
 

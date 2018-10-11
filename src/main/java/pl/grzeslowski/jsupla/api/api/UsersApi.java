@@ -13,23 +13,12 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
-import pl.grzeslowski.jsupla.api.ApiCallback;
-import pl.grzeslowski.jsupla.api.ApiClient;
-import pl.grzeslowski.jsupla.api.ApiException;
-import pl.grzeslowski.jsupla.api.ApiResponse;
-import pl.grzeslowski.jsupla.api.Configuration;
-import pl.grzeslowski.jsupla.api.Pair;
-import pl.grzeslowski.jsupla.api.ProgressRequestBody;
-import pl.grzeslowski.jsupla.api.ProgressResponseBody;
-
 import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
+import pl.grzeslowski.jsupla.api.*;
+import pl.grzeslowski.jsupla.api.model.CurrentUser;
 import pl.grzeslowski.jsupla.api.model.UserUpdateRequest;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,24 +103,25 @@ public class UsersApi {
 
     /**
      * Get current user
-     * 
-     * @return ERRORUNKNOWN
+     *
+     * @return CurrentUser
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ERRORUNKNOWN getCurrentUser() throws ApiException {
-        ApiResponse<ERRORUNKNOWN> resp = getCurrentUserWithHttpInfo();
+    public CurrentUser getCurrentUser() throws ApiException {
+        ApiResponse<CurrentUser> resp = getCurrentUserWithHttpInfo();
         return resp.getData();
     }
 
     /**
      * Get current user
-     * 
-     * @return ApiResponse&lt;ERRORUNKNOWN&gt;
+     *
+     * @return ApiResponse&lt;{@link CurrentUser}&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ERRORUNKNOWN> getCurrentUserWithHttpInfo() throws ApiException {
+    public ApiResponse<CurrentUser> getCurrentUserWithHttpInfo() throws ApiException {
         com.squareup.okhttp.Call call = getCurrentUserValidateBeforeCall(null, null);
-        Type localVarReturnType = new TypeToken<ERRORUNKNOWN>(){}.getType();
+        Type localVarReturnType = new TypeToken<CurrentUser>() {
+        }.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -142,7 +132,7 @@ public class UsersApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getCurrentUserAsync(final ApiCallback<ERRORUNKNOWN> callback) throws ApiException {
+    public com.squareup.okhttp.Call getCurrentUserAsync(final ApiCallback<CurrentUser> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -164,7 +154,8 @@ public class UsersApi {
         }
 
         com.squareup.okhttp.Call call = getCurrentUserValidateBeforeCall(progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ERRORUNKNOWN>(){}.getType();
+        Type localVarReturnType = new TypeToken<CurrentUser>() {
+        }.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

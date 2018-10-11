@@ -13,21 +13,18 @@
 
 package pl.grzeslowski.jsupla.api.model;
 
-import java.util.Objects;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
-import pl.grzeslowski.jsupla.api.model.Channel;
-import pl.grzeslowski.jsupla.api.model.ChannelFunctionAction;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import pl.grzeslowski.jsupla.api.model.ScheduleClosestExecutions;
+import org.threeten.bp.OffsetDateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.OffsetDateTime;
+import java.util.Objects;
 
 /**
  * Schedule
@@ -44,7 +41,7 @@ public class Schedule {
   private ChannelFunctionAction action = null;
 
   @SerializedName("actionParam")
-  private ERRORUNKNOWN actionParam = null;
+  private ScheduleActionParam actionParam = null;
 
   /**
    * Gets or Sets mode
@@ -181,7 +178,7 @@ public class Schedule {
     this.action = action;
   }
 
-  public Schedule actionParam(ERRORUNKNOWN actionParam) {
+  public Schedule actionParam(ScheduleActionParam actionParam) {
     this.actionParam = actionParam;
     return this;
   }
@@ -191,11 +188,11 @@ public class Schedule {
    * @return actionParam
   **/
   @ApiModelProperty(example = "", value = "Depends on the action.")
-  public ERRORUNKNOWN getActionParam() {
+  public ScheduleActionParam getActionParam() {
     return actionParam;
   }
 
-  public void setActionParam(ERRORUNKNOWN actionParam) {
+  public void setActionParam(ScheduleActionParam actionParam) {
     this.actionParam = actionParam;
   }
 

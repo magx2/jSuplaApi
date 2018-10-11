@@ -13,22 +13,11 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
-import pl.grzeslowski.jsupla.api.ApiCallback;
-import pl.grzeslowski.jsupla.api.ApiClient;
-import pl.grzeslowski.jsupla.api.ApiException;
-import pl.grzeslowski.jsupla.api.ApiResponse;
-import pl.grzeslowski.jsupla.api.Configuration;
-import pl.grzeslowski.jsupla.api.Pair;
-import pl.grzeslowski.jsupla.api.ProgressRequestBody;
-import pl.grzeslowski.jsupla.api.ProgressResponseBody;
-
 import com.google.gson.reflect.TypeToken;
+import pl.grzeslowski.jsupla.api.*;
+import pl.grzeslowski.jsupla.api.model.ServerInfo;
 
 import java.io.IOException;
-
-
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,24 +102,25 @@ public class ServerApi {
 
     /**
      * Get server info
-     * 
-     * @return ERRORUNKNOWN
+     *
+     * @return ServerInfo
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ERRORUNKNOWN getServerInfo() throws ApiException {
-        ApiResponse<ERRORUNKNOWN> resp = getServerInfoWithHttpInfo();
+    public ServerInfo getServerInfo() throws ApiException {
+        ApiResponse<ServerInfo> resp = getServerInfoWithHttpInfo();
         return resp.getData();
     }
 
     /**
      * Get server info
-     * 
-     * @return ApiResponse&lt;ERRORUNKNOWN&gt;
+     *
+     * @return ApiResponse&lt;{@link ServerInfo}&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ERRORUNKNOWN> getServerInfoWithHttpInfo() throws ApiException {
+    public ApiResponse<ServerInfo> getServerInfoWithHttpInfo() throws ApiException {
         com.squareup.okhttp.Call call = getServerInfoValidateBeforeCall(null, null);
-        Type localVarReturnType = new TypeToken<ERRORUNKNOWN>(){}.getType();
+        Type localVarReturnType = new TypeToken<ServerInfo>() {
+        }.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -141,7 +131,7 @@ public class ServerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getServerInfoAsync(final ApiCallback<ERRORUNKNOWN> callback) throws ApiException {
+    public com.squareup.okhttp.Call getServerInfoAsync(final ApiCallback<ServerInfo> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -163,7 +153,8 @@ public class ServerApi {
         }
 
         com.squareup.okhttp.Call call = getServerInfoValidateBeforeCall(progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ERRORUNKNOWN>(){}.getType();
+        Type localVarReturnType = new TypeToken<ServerInfo>() {
+        }.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

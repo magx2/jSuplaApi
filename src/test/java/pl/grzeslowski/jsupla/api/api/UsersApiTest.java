@@ -13,11 +13,11 @@
 
 package pl.grzeslowski.jsupla.api.api;
 
-import pl.grzeslowski.jsupla.api.ApiException;
-import pl.grzeslowski.jsupla.api.model.ERRORUNKNOWN;
-import pl.grzeslowski.jsupla.api.model.UserUpdateRequest;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
+import pl.grzeslowski.jsupla.api.ApiException;
+import pl.grzeslowski.jsupla.api.model.CurrentUser;
+import pl.grzeslowski.jsupla.api.model.UserUpdateRequest;
 
 /**
  * API tests for UsersApi
@@ -38,7 +38,7 @@ public class UsersApiTest {
      */
     @Test
     public void getCurrentUserTest() throws ApiException {
-        ERRORUNKNOWN response = api.getCurrentUser();
+        CurrentUser response = api.getCurrentUser();
 
         // TODO: test validations
     }
