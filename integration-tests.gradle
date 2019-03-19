@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 sourceSets {
 	integrationTest {
-		java {
+		groovy {
 			compileClasspath += main.output + test.output
 			runtimeClasspath += main.output + test.output
 			srcDir file('src/integrationTest/groovy')
