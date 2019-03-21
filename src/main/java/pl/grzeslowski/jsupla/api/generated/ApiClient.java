@@ -16,7 +16,6 @@ import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -97,27 +96,7 @@ public class ApiClient {
      */
     public ApiClient() {
         httpClient = new OkHttpClient();
-
-        final List<Interceptor> requestInterceptors = httpClient.interceptors();
-        requestInterceptors.add(new Interceptor() {
-            @Override
-            public Response intercept(final Chain chain) throws IOException {
-                Request request = chain.request();
-
-                System.out.println(String.format("Sending request %s on %s%n%s",
-                        request.url(), chain.connection(), request.headers()));
-
-                Response response = chain.proceed(request);
-
-                System.out.println(String.format("Received response for %s in %n%s",
-                        response.request().url(), response.headers()));
-
-                return response;
-            }
-        });
-
         verifyingSsl = true;
-
         json = new JSON();
 
         // Set default User-Agent.
