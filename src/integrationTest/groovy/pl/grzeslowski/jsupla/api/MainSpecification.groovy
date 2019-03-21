@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.api
 
 import pl.grzeslowski.jsupla.api.generated.ApiClient
 import pl.grzeslowski.jsupla.api.generated.api.*
+import spock.lang.Ignore
 import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
@@ -34,6 +35,7 @@ class MainSpecification extends Specification {
 		info.timezone
 	}
 
+	@Ignore("Requires RW token")
 	def "AccessIdentifiersApi"() {
 		given:
 		def accessIdentifiersApi = new AccessIdentifiersApi(client)
