@@ -77,8 +77,6 @@ class MainSpecification extends Specification {
 		when:
 		def ioDevices = ioDevicesApi.getIoDevices(["channels", "location"])
 
-		println(ioDevices*.regIpv4)
-
 		then:
 		ioDevices != null
 	}
