@@ -5,6 +5,8 @@ import pl.grzeslowski.jsupla.api.generated.auth.OAuth;
 
 import java.util.Base64;
 
+import static pl.grzeslowski.jsupla.api.generated.ApiClient.API_VERSION;
+
 public final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
 
@@ -29,7 +31,7 @@ public final class ApiClientFactory {
         }
         String urlBase64 = split[1];
         String url = new String(Base64.getDecoder().decode(urlBase64));
-        client.setBasePath(url + "/api/v2.2.0");
+        client.setBasePath(url + "/api/v" + API_VERSION);
         return client;
     }
 }
