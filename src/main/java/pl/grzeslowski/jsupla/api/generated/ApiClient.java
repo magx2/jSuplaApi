@@ -70,6 +70,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ApiClient {
+    public static final String API_VERSION = "2.2.0";
     private String basePath = "https://cloud.supla.org/api/v2.2.0";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
