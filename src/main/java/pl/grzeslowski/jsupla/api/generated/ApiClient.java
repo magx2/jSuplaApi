@@ -16,6 +16,7 @@ import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -24,7 +25,6 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor.Level;
 import okio.BufferedSink;
 import okio.Okio;
 import org.threeten.bp.LocalDate;
@@ -90,7 +90,7 @@ public class ApiClient {
     private OkHttpClient httpClient;
     private JSON json;
 
-    private HttpLoggingInterceptor loggingInterceptor;
+    private Interceptor loggingInterceptor;
 
     /*
      * Constructor for ApiClient
@@ -394,14 +394,17 @@ public class ApiClient {
      * @return ApiClient
      */
     public ApiClient setDebugging(boolean debugging) {
+        return setDebugging(debugging, new HttpLoggingInterceptor());
+    }
+
+    public ApiClient setDebugging(boolean debugging, Interceptor loggingInterceptor) {
         if (debugging != this.debugging) {
             if (debugging) {
-                loggingInterceptor = new HttpLoggingInterceptor();
-                loggingInterceptor.setLevel(Level.BODY);
-                httpClient.interceptors().add(loggingInterceptor);
+                this.loggingInterceptor = loggingInterceptor;
+                httpClient.interceptors().add(this.loggingInterceptor);
             } else {
-                httpClient.interceptors().remove(loggingInterceptor);
-                loggingInterceptor = null;
+                httpClient.interceptors().remove(this.loggingInterceptor);
+                this.loggingInterceptor = null;
             }
         }
         this.debugging = debugging;
