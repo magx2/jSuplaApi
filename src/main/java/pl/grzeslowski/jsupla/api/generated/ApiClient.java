@@ -394,14 +394,18 @@ public class ApiClient {
      * @return ApiClient
      */
     public ApiClient setDebugging(boolean debugging) {
+        return setDebugging(debugging, new HttpLoggingInterceptor());
+    }
+
+    public ApiClient setDebugging(boolean debugging, HttpLoggingInterceptor loggingInterceptor) {
         if (debugging != this.debugging) {
             if (debugging) {
-                loggingInterceptor = new HttpLoggingInterceptor();
-                loggingInterceptor.setLevel(Level.BODY);
-                httpClient.interceptors().add(loggingInterceptor);
+                this.loggingInterceptor = loggingInterceptor;
+                this.loggingInterceptor.setLevel(Level.BODY);
+                httpClient.interceptors().add(this.loggingInterceptor);
             } else {
-                httpClient.interceptors().remove(loggingInterceptor);
-                loggingInterceptor = null;
+                httpClient.interceptors().remove(this.loggingInterceptor);
+                this.loggingInterceptor = null;
             }
         }
         this.debugging = debugging;
