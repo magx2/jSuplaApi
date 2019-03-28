@@ -43,13 +43,13 @@ public class Device {
   private OffsetDateTime regDate = null;
 
   @SerializedName("regIpv4")
-  private Integer regIpv4 = null;
+  private String regIpv4 = null;
 
   @SerializedName("lastConnected")
   private OffsetDateTime lastConnected = null;
 
   @SerializedName("lastIpv4")
-  private Integer lastIpv4 = null;
+  private String lastIpv4 = null;
 
   @SerializedName("softwareVersion")
   private String softwareVersion = null;
@@ -161,7 +161,7 @@ public class Device {
     this.regDate = regDate;
   }
 
-    public Device regIpv4(Integer regIpv4) {
+  public Device regIpv4(String regIpv4) {
     this.regIpv4 = regIpv4;
     return this;
   }
@@ -171,11 +171,11 @@ public class Device {
      * @return regIpv4
   **/
     @Schema(description = "")
-    public Integer getRegIpv4() {
+    public String getRegIpv4() {
     return regIpv4;
   }
 
-    public void setRegIpv4(Integer regIpv4) {
+  public void setRegIpv4(String regIpv4) {
     this.regIpv4 = regIpv4;
   }
   public Device lastConnected(OffsetDateTime lastConnected) {
@@ -195,7 +195,7 @@ public class Device {
     this.lastConnected = lastConnected;
   }
 
-    public Device lastIpv4(Integer lastIpv4) {
+  public Device lastIpv4(String lastIpv4) {
     this.lastIpv4 = lastIpv4;
     return this;
   }
@@ -205,11 +205,11 @@ public class Device {
      * @return lastIpv4
   **/
     @Schema(description = "")
-    public Integer getLastIpv4() {
+    public String getLastIpv4() {
     return lastIpv4;
   }
 
-    public void setLastIpv4(Integer lastIpv4) {
+  public void setLastIpv4(String lastIpv4) {
     this.lastIpv4 = lastIpv4;
   }
   public Device softwareVersion(String softwareVersion) {
