@@ -21,7 +21,7 @@ public final class ApiClientFactory {
      */
     public ApiClient newApiClient(String oAuthToken) {
         ApiClient client = new ApiClient();
-        OAuth password = (OAuth) client.getAuthentication("password");
+        OAuth password = (OAuth) client.getAuthentication("BearerAuth");
         password.setAccessToken(oAuthToken);
         String[] split = oAuthToken.split("\\.");
         if (split.length == 0) {
