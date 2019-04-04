@@ -93,7 +93,7 @@ public class Channel {
   private Boolean connected = null;
 
   @SerializedName("state")
-  private Object state = null;
+  private ChannelState state = null;
 
   @SerializedName("supportedFunctions")
   private List<ChannelFunction> supportedFunctions = null;
@@ -461,7 +461,8 @@ public class Channel {
   public void setConnected(Boolean connected) {
       this.connected = connected;
   }
-  public Channel state(Object state) {
+
+  public Channel state(ChannelState state) {
       this.state = state;
       return this;
   }
@@ -471,10 +472,11 @@ public class Channel {
      * @return state
      **/
     @Schema(example = "{}", description = "The channel's state. The value and the format is dependend on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).")
-    public Object getState() {
+    public ChannelState getState() {
     return state;
   }
-  public void setState(Object state) {
+
+  public void setState(ChannelState state) {
     this.state = state;
   }
   public Channel supportedFunctions(List<ChannelFunction> supportedFunctions) {
