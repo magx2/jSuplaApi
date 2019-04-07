@@ -26,7 +26,7 @@ public class ChannelState {
     @SerializedName("brightness")
     private Integer brightness;
     @SerializedName("color")
-    private Integer color;
+    private String color;
     @SerializedName("color_brightness")
     private Integer colorBrightness;
     @SerializedName("depth")
@@ -109,11 +109,11 @@ public class ChannelState {
         return this;
     }
 
-    public Integer getColor() {
+    public String getColor() {
         return color;
     }
 
-    public ChannelState setColor(final Integer color) {
+    public ChannelState setColor(final String color) {
         this.color = color;
         return this;
     }
