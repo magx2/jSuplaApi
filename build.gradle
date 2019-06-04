@@ -61,7 +61,7 @@ if(openHabHome) {
     }
     task openHab(type: Copy) {
         from fatJar.archivePath.absolutePath
-        into "$openHabHome\\addons\\binding\\org.openhab.binding.supla\\lib"
+        into "$openHabHome\\bundles\\org.openhab.binding.supla\\lib"
     }
     openHab.dependsOn fatJar
     fatJar.dependsOn build
