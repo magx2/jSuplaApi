@@ -24,7 +24,7 @@ public final class ApiClientFactory {
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
         password.setAccessToken(oAuthToken);
         String[] split = oAuthToken.split("\\.");
-        if (split.length == 0) {
+        if (split.length < 2) {
             throw new IllegalArgumentException("OAuth token does not contain '.' (dot)!");
         } else if (split.length > 2) {
             throw new IllegalArgumentException("OAuth token has too many '.' (dot) " + split.length + "!");
