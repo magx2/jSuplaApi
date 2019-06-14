@@ -9,9 +9,16 @@ import pl.grzeslowski.jsupla.api.channel.state.State;
 @EqualsAndHashCode
 final class ChannelImpl implements Channel {
     private final pl.grzeslowski.jsupla.api.generated.model.Channel channel;
+    private final State state;
 
     ChannelImpl(pl.grzeslowski.jsupla.api.generated.model.Channel channel) {
         this.channel = channel;
+        this.state = new SatateImpl(
+                channel.getParam1(),
+                channel.getParam2(),
+                channel.getParam3(),
+                channel.getState()
+        );
     }
 
     @Override
@@ -46,6 +53,6 @@ final class ChannelImpl implements Channel {
 
     @Override
     public State getState() {
-        return null; // TODO
+        return state;
     }
 }
