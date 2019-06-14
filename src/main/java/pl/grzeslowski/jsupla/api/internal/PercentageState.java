@@ -33,7 +33,7 @@ final class PercentageState implements BrightnessState, HumidityState {
     }
 
     @Override
-    public Percentage getHumidity() {
+    public Percentage getHumidityState() {
         return percentage;
     }
 }

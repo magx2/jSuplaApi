@@ -37,9 +37,12 @@ public final class HsbTypeConverter {
         return addZeroPrefix ? "0" + hex : hex;
     }
 
-    public Hsv toHsv(String hex, int brightness) {
+    public Hsv toHsv(String hex, Integer brightness) {
         if (!hex.startsWith(HEX_PREFIX)) {
             throw new IllegalArgumentException("Hex should start with `" + HEX_PREFIX + "`. Was " + hex);
+        }
+        if (brightness == null) {
+            brightness = 100;
         }
         if (brightness > 100 || brightness < 0) {
             throw new IllegalArgumentException("Brightness should be [0,100]! Was " + brightness);
