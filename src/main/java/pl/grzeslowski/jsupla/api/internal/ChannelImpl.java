@@ -13,7 +13,7 @@ final class ChannelImpl implements Channel {
 
     ChannelImpl(pl.grzeslowski.jsupla.api.generated.model.Channel channel) {
         this.channel = channel;
-        this.state = new SatateImpl(
+        this.state = new StateImpl(
                 channel.getParam1(),
                 channel.getParam2(),
                 channel.getParam3(),

@@ -25,13 +25,15 @@ import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.OFF;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
 
 @ToString
-final class SatateImpl implements BrightnessState, ColorAndBrightnessState, ColorState, DepthState, DistanceState, HumidityState, OnOffState, PartialOpenState, RollerShutterState, TemperatureAndHumidityState, TemperatureState {
+final class StateImpl implements BrightnessState, ColorAndBrightnessState, ColorState, DepthState, DistanceState,
+                                         HumidityState, OnOffState, PartialOpenState, RollerShutterState,
+                                         TemperatureAndHumidityState, TemperatureState {
     private final ChannelState state;
     private final Integer param1;
     private final Integer param2;
     private final Integer param3;
 
-    SatateImpl(final Integer param1, final Integer param2, final Integer param3, final ChannelState state) {
+    StateImpl(final Integer param1, final Integer param2, final Integer param3, final ChannelState state) {
         this.param1 = param1;
         this.param2 = param2;
         this.param3 = param3;
