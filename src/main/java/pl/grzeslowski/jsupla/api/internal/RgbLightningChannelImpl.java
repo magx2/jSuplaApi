@@ -1,8 +1,9 @@
-package pl.grzeslowski.jsupla.api.channel;
+package pl.grzeslowski.jsupla.api.internal;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.HsbTypeConverter;
+import pl.grzeslowski.jsupla.api.channel.RgbLightningChannel;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
 import pl.grzeslowski.jsupla.api.generated.model.Channel;
 

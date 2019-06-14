@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.api.channel;
+package pl.grzeslowski.jsupla.api.internal;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

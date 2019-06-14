@@ -1,7 +1,8 @@
-package pl.grzeslowski.jsupla.api.channel;
+package pl.grzeslowski.jsupla.api.internal;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import pl.grzeslowski.jsupla.api.channel.TemperatureAndHumidityChannel;
 import pl.grzeslowski.jsupla.api.channel.state.HumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureAndHumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureState;

@@ -1,7 +1,8 @@
-package pl.grzeslowski.jsupla.api.channel;
+package pl.grzeslowski.jsupla.api.internal;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import pl.grzeslowski.jsupla.api.channel.DimmerAndRgbLightningChannel;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
