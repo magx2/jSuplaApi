@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import lombok.ToString;
 import pl.grzeslowski.jsupla.api.HsbTypeConverter;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
@@ -23,6 +24,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.OFF;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
 
+@ToString
 final class SatateImpl implements BrightnessState, ColorAndBrightnessState, ColorState, DepthState, DistanceState, HumidityState, OnOffState, PartialOpenState, RollerShutterState, TemperatureAndHumidityState, TemperatureState {
     private final ChannelState state;
     private final Integer param1;
