@@ -178,10 +178,10 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
         return type;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends State> T castTo() {
-        return (T) this;
+    public <T extends State> T castTo(Class<? extends T> clazz) {
+        checkType(clazz);
+        return clazz.cast(this);
     }
 
     private Class<? extends State> iniTypeDispatcher(final ChannelFunctionEnumNames name) {
