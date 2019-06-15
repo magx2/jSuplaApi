@@ -65,4 +65,13 @@ final class DeviceImpl implements Device {
     public SortedSet<Channel> getChannels() {
         return channels;
     }
+
+    @Override
+    public int compareTo(final Device o) {
+        final int nameCompare = getName().compareTo(o.getName());
+        if (nameCompare != 0) {
+            return nameCompare;
+        }
+        return Integer.compare(getId(), o.getId());
+    }
 }

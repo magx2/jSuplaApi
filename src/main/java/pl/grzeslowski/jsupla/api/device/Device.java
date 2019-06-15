@@ -7,7 +7,7 @@ import pl.grzeslowski.jsupla.api.common.WithId;
 import java.time.ZonedDateTime;
 import java.util.SortedSet;
 
-public interface Device extends WithId, WithEnabled {
+public interface Device extends WithId, WithEnabled, Comparable<Device> {
     String getName();
 
     ZonedDateTime getLastConnected();
