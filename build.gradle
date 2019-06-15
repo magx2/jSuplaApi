@@ -9,6 +9,7 @@ group = 'pl.grzeslowski.jsupla.api'
 
 repositories {
 	jcenter()
+	maven { url "https://dl.bintray.com/big-boy/bigboy" }
 }
 
 apply plugin: 'java'
@@ -38,6 +39,7 @@ dependencies {
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.assertj:assertj-core:3.11.1"
+	testCompile 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.12'
 }
 
 apply from: 'integration-tests.gradle'
@@ -46,7 +48,7 @@ def getOpenHabHome() {
 	return project.hasProperty("OPEN_HAB_HOME") ? project.OPEN_HAB_HOME : ""
 }
 
-if(openHabHome) {
+if (openHabHome) {
 	println "  Enabling building fat jar for OpenHAb ($openHabHome)"
 	task fatJar(type: Jar) {
 		baseName = "${project.name}-fat"

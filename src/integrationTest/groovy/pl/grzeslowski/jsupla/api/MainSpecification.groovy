@@ -1,97 +1,40 @@
 package pl.grzeslowski.jsupla.api
 
-import pl.grzeslowski.jsupla.api.generated.ApiClient
-import pl.grzeslowski.jsupla.api.generated.api.*
-import pl.grzeslowski.jsupla.api.internal.ApiClientFactory
+import org.springframework.boot.loader.JarLauncher
 import spock.lang.Ignore
-import spock.lang.Requires
-import spock.lang.Shared
 import spock.lang.Specification
 
-@Requires({ System.getenv(JSUPLA_API_TOKEN_RO) })
 class MainSpecification extends Specification {
-	static final String JSUPLA_API_TOKEN_RO = "JSUPLA_API_TOKEN_RO"
-	@Shared
-	static ApiClient client = new ApiClient()
+	static TOKEN = "MzFhYTNiZTAwODg5M2E0NDE3OGUwNWE5ZjYzZWQ2YzllZGFiYWRmNDQwNDBlNmZhZGEzN2I3NTJiOWM2ZWEyZg.aHR0cDovL2xvY2FsaG9zdDo5MDkw"
+	Api api
 
 	void setupSpec() {
-		def token = System.getenv(JSUPLA_API_TOKEN_RO)
-		client = ApiClientFactory.INSTANCE.newApiClient(token)
-		client.debugging = true
+		JarLauncher.main()
 	}
 
-	def "ServerApi"() {
-		given:
-		def serverApi = new ServerApi(client)
-
-		when:
-		def info = serverApi.getServerInfo()
-
-		then:
-		info
-		info.address
-		info.apiVersion
-		info.cloudVersion
-		info.supportedApiVersions
-		info.time
-		info.timezone
+	void setup() {
+		api = Api.getInstance(TOKEN)
 	}
 
-	@Ignore("Requires RW token")
-	def "AccessIdentifiersApi"() {
-		given:
-		def accessIdentifiersApi = new AccessIdentifiersApi(client)
-
-		when:
-		def identifier = accessIdentifiersApi.createAccessIdentifier()
-
-		then:
-		identifier
-		identifier.id
+	def "should find all devices"() {
+		expect:
+		api.deviceApi.findDevices()
 	}
 
-	def "ChannelGroupsApi"() {
-		given:
-		def channelGroupsApi = new ChannelGroupsApi(client)
-
-		when:
-		def channelGroups = channelGroupsApi.getChannelGroups([])
-
-		then:
-		channelGroups != null
+	def "should find all channels"() {
+		expect:
+		api.channelApi.findChannels()
 	}
 
-	def "ChannelsApi"() {
+	@Ignore("Not implemented on server side!")
+	def "should find channels for device"() {
 		given:
-		def channelsApi = new ChannelsApi(client)
+		def device = api.deviceApi.findDevices().first()
 
 		when:
-		def channels = channelsApi.getChannels([], [], null, true)
+		def channels = api.channelApi.findChannels(device)
 
 		then:
-		channels != null
-	}
-
-	def "IoDevicesApi"() {
-		given:
-		def ioDevicesApi = new IoDevicesApi(client)
-
-		when:
-		def ioDevices = ioDevicesApi.getIoDevices(["channels", "location"])
-
-		then:
-		ioDevices != null
-	}
-
-	def "UsersApi"() {
-		given:
-		def usersApi = new UsersApi(client)
-
-		when:
-		def user = usersApi.currentUser
-
-		then:
-		user
-		user.email
+		channels == device.channels
 	}
 }
