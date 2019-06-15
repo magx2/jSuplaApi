@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.api.channel.state;
 
-import pl.grzeslowski.jsupla.api.HsbTypeConverter;
+import pl.grzeslowski.jsupla.api.Color;
 
 public interface ColorState extends State {
-    HsbTypeConverter.Rgb getRgb();
+    Color.Rgb getRgb();
 
-    HsbTypeConverter.Hsv getHsv();
+    Color.Hsv getHsv();
 }

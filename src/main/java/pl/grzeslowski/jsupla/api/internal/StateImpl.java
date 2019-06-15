@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import pl.grzeslowski.jsupla.api.HsbTypeConverter;
+import pl.grzeslowski.jsupla.api.Color;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
@@ -55,7 +55,7 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
     }
 
     @Override
-    public HsbTypeConverter.Rgb getRgb() {
+    public Color.Rgb getRgb() {
         checkType(ColorState.class);
         return HsbTypeConverter.INSTANCE.toHsv(
                 state.getColor(),
@@ -64,7 +64,7 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
     }
 
     @Override
-    public HsbTypeConverter.Hsv getHsv() {
+    public Color.Hsv getHsv() {
         checkType(ColorState.class);
         return HsbTypeConverter.INSTANCE.toHsv(
                 state.getColor(),
