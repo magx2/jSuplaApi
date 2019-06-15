@@ -2,9 +2,9 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.device.Device;
-import pl.grzeslowski.jsupla.api.generated.ApiClient;
-import pl.grzeslowski.jsupla.api.generated.ApiException;
-import pl.grzeslowski.jsupla.api.generated.api.IoDevicesApi;
+import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
+import pl.grzeslowski.jsupla.api.internal.generated.ApiException;
+import pl.grzeslowski.jsupla.api.internal.generated.api.IoDevicesApi;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -42,7 +42,7 @@ final class DeviceApiImpl implements DeviceApi {
         }
     }
 
-    private Device mapToDevice(pl.grzeslowski.jsupla.api.generated.model.Device device) {
+    private Device mapToDevice(pl.grzeslowski.jsupla.api.internal.generated.model.Device device) {
         return new DeviceImpl(device);
     }
 }

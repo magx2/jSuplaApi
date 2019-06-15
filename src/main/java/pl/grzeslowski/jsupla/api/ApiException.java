@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 @ToString
 public class ApiException extends RuntimeException {
     private final String path;
-    private final pl.grzeslowski.jsupla.api.generated.ApiException apiException;
+    private final pl.grzeslowski.jsupla.api.internal.generated.ApiException apiException;
 
     public ApiException(final String path,
-                        final pl.grzeslowski.jsupla.api.generated.ApiException apiException) {
+                        final pl.grzeslowski.jsupla.api.internal.generated.ApiException apiException) {
         super(buildMessage(path, apiException), apiException);
         this.path = path;
         this.apiException = apiException;
     }
 
-    private static String buildMessage(final String path, final pl.grzeslowski.jsupla.api.generated.ApiException apiException) {
+    private static String buildMessage(final String path, final pl.grzeslowski.jsupla.api.internal.generated.ApiException apiException) {
         final StringBuilder sb = new StringBuilder("Got error while executing `").append(path).append("` API call!");
         if (apiException.getCode() > 0) {
             sb.append(" Error code: ").append(apiException.getCode());

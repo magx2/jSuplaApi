@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import pl.grzeslowski.jsupla.api.generated.ApiClient;
-import pl.grzeslowski.jsupla.api.generated.auth.OAuth;
+import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
+import pl.grzeslowski.jsupla.api.internal.generated.auth.OAuth;
 
 import java.util.Base64;
 
-import static pl.grzeslowski.jsupla.api.generated.ApiClient.API_VERSION;
+import static pl.grzeslowski.jsupla.api.internal.generated.ApiClient.API_VERSION;
 
 final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();

@@ -17,7 +17,7 @@ final class ChannelImpl implements Channel {
     private Boolean hidden;
     private Boolean connected;
 
-    ChannelImpl(pl.grzeslowski.jsupla.api.generated.model.Channel channel) {
+    ChannelImpl(pl.grzeslowski.jsupla.api.internal.generated.model.Channel channel) {
         requireNonNull(channel);
         id = channel.getId();
         channelNumber = channel.getChannelNumber();

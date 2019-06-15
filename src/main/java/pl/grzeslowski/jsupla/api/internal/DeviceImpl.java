@@ -25,7 +25,7 @@ final class DeviceImpl implements Device {
     private final String guid;
     private final SortedSet<Channel> channels;
 
-    DeviceImpl(pl.grzeslowski.jsupla.api.generated.model.Device device) {
+    DeviceImpl(pl.grzeslowski.jsupla.api.internal.generated.model.Device device) {
         requireNonNull(device);
         final String format = device.getLastConnected().toZonedDateTime().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         this.id = device.getId();

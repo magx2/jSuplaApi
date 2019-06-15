@@ -14,8 +14,8 @@ import pl.grzeslowski.jsupla.api.channel.state.RollerShutterState;
 import pl.grzeslowski.jsupla.api.channel.state.State;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureAndHumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureState;
-import pl.grzeslowski.jsupla.api.generated.model.ChannelFunctionEnumNames;
-import pl.grzeslowski.jsupla.api.generated.model.ChannelState;
+import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionEnumNames;
+import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelState;
 
 import java.math.BigDecimal;
 import java.util.Optional;
