@@ -17,6 +17,7 @@ final class ChannelImpl implements Channel {
                 channel.getParam1(),
                 channel.getParam2(),
                 channel.getParam3(),
+                channel.getFunction().getName(),
                 channel.getState()
         );
     }
