@@ -10,4 +10,6 @@ public interface Api {
     DeviceApi getDeviceApi();
 
     ChannelApi getChannelApi();
+
+    LocationApi getLocationApi();
 }

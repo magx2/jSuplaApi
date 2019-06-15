@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import pl.grzeslowski.jsupla.api.Api;
 import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
+import pl.grzeslowski.jsupla.api.LocationApi;
 import pl.grzeslowski.jsupla.api.generated.ApiClient;
 
 import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
@@ -22,5 +23,10 @@ public final class ApiImpl implements Api {
     @Override
     public ChannelApi getChannelApi() {
         return new ChannelApiImpl(apiClient);
+    }
+
+    @Override
+    public LocationApi getLocationApi() {
+        return new LocationApiImpl(apiClient);
     }
 }
