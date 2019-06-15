@@ -14,7 +14,7 @@ public interface Device extends WithId, WithEnabled, Comparable<Device> {
 
     String getSoftwareVersion();
 
-    String getGuidString();
+    String getGuid();
 
     SortedSet<Channel> getChannels();
 }

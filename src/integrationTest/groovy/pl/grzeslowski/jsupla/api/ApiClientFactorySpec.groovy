@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.api
 
+import pl.grzeslowski.jsupla.api.internal.ApiClientFactory
 import spock.lang.Specification
 
 class ApiClientFactorySpec extends Specification {

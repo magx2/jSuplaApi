@@ -368,8 +368,8 @@ public class IoDevicesApi {
      * @return Channel
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Channel getIoDeviceChannels(Integer id, List<String> include) throws ApiException {
-        ApiResponse<Channel> resp = getIoDeviceChannelsWithHttpInfo(id, include);
+    public List<Channel> getIoDeviceChannels(Integer id, List<String> include) throws ApiException {
+        ApiResponse<List<Channel>> resp = getIoDeviceChannelsWithHttpInfo(id, include);
         return resp.getData();
     }
 
@@ -381,9 +381,10 @@ public class IoDevicesApi {
      * @return ApiResponse&lt;Channel&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Channel> getIoDeviceChannelsWithHttpInfo(Integer id, List<String> include) throws ApiException {
+    public ApiResponse<List<Channel>> getIoDeviceChannelsWithHttpInfo(Integer id, List<String> include) throws ApiException {
         com.squareup.okhttp.Call call = getIoDeviceChannelsValidateBeforeCall(id, include, null, null);
-        Type localVarReturnType = new TypeToken<Channel>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<Channel>>() {
+        }.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 

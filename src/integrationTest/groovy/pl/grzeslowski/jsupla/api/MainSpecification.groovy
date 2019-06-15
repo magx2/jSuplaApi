@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.api
 
 import pl.grzeslowski.jsupla.api.generated.ApiClient
 import pl.grzeslowski.jsupla.api.generated.api.*
+import pl.grzeslowski.jsupla.api.internal.ApiClientFactory
 import spock.lang.Ignore
 import spock.lang.Requires
 import spock.lang.Shared
@@ -16,6 +17,7 @@ class MainSpecification extends Specification {
 	void setupSpec() {
 		def token = System.getenv(JSUPLA_API_TOKEN_RO)
 		client = ApiClientFactory.INSTANCE.newApiClient(token)
+		client.debugging = true
 	}
 
 	def "ServerApi"() {
