@@ -17,14 +17,23 @@ import static java.util.Objects.requireNonNull;
 @ToString
 @EqualsAndHashCode
 final class DeviceImpl implements Device {
-    private final pl.grzeslowski.jsupla.api.generated.model.Device device;
+    private final Integer id;
+    private final Boolean enabled;
+    private final String name;
+    private final String softwareVersion;
     private final ZonedDateTime lastConnected;
+    private final String guid;
     private final SortedSet<Channel> channels;
 
     DeviceImpl(pl.grzeslowski.jsupla.api.generated.model.Device device) {
-        this.device = requireNonNull(device);
+        requireNonNull(device);
         final String format = device.getLastConnected().toZonedDateTime().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        this.id = device.getId();
+        this.enabled = device.isEnabled();
+        this.name = device.getName();
         this.lastConnected = ZonedDateTime.parse(format, ISO_OFFSET_DATE_TIME);
+        this.softwareVersion = device.getSoftwareVersion();
+        this.guid = device.getGUIDString();
         this.channels = device.getChannels()
                                 .stream()
                                 .map(ChannelImpl::new)
@@ -33,17 +42,17 @@ final class DeviceImpl implements Device {
 
     @Override
     public int getId() {
-        return device.getId();
+        return id;
     }
 
     @Override
     public boolean isEnabled() {
-        return device.isEnabled();
+        return enabled;
     }
 
     @Override
     public String getName() {
-        return device.getName();
+        return name;
     }
 
     @Override
@@ -53,12 +62,12 @@ final class DeviceImpl implements Device {
 
     @Override
     public String getSoftwareVersion() {
-        return device.getSoftwareVersion();
+        return softwareVersion;
     }
 
     @Override
-    public String getGuidString() {
-        return device.getGUIDString();
+    public String getGuid() {
+        return guid;
     }
 
     @Override

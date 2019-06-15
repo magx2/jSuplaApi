@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import lombok.ToString;
 import pl.grzeslowski.jsupla.api.HsbTypeConverter;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
@@ -20,6 +19,7 @@ import pl.grzeslowski.jsupla.api.generated.model.ChannelState;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 import static java.lang.String.format;
 import static java.math.RoundingMode.CEILING;
@@ -27,7 +27,6 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.OFF;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
 
-@ToString
 final class StateImpl implements BrightnessState, ColorAndBrightnessState, ColorState, DepthState, DistanceState,
                                          HumidityState, OnOffState, PartialOpenState, RollerShutterState,
                                          TemperatureAndHumidityState, TemperatureState {
@@ -342,4 +341,56 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
             }
         });
     }
+
+    @Override
+    public String toString() {
+        return stateToString(new StringJoiner(", ", StateImpl.class.getSimpleName() + "[", "]"))
+                       .add("param1=" + param1)
+                       .add("param2=" + param2)
+                       .add("param3=" + param3)
+                       .add("type=" + type)
+                       .toString();
+    }
+
+    @SuppressWarnings("Duplicates")
+    private StringJoiner stateToString(StringJoiner joiner) {
+        if (state.getOn() != null) {
+            joiner.add("on=" + state.getOn());
+        }
+        if (state.getHi() != null) {
+            joiner.add("hi=" + state.getHi());
+        }
+        if (state.getHumidity() != null) {
+            joiner.add("humidity=" + state.getHumidity());
+        }
+        if (state.getTemperature() != null) {
+            joiner.add("temperature=" + state.getTemperature());
+        }
+        if (state.getBrightness() != null) {
+            joiner.add("brightness=" + state.getBrightness());
+        }
+        if (state.getColor() != null) {
+            joiner.add("color=" + state.getColor());
+        }
+        if (state.getCalibrating() != null) {
+            joiner.add("calibrating=" + state.getCalibrating());
+        }
+        if (state.getDepth() != null) {
+            joiner.add("depth=" + state.getDepth());
+        }
+        if (state.getDistance() != null) {
+            joiner.add("distance=" + state.getDistance());
+        }
+        if (state.getPartialHi() != null) {
+            joiner.add("partialHi=" + state.getPartialHi());
+        }
+        if (state.getShut() != null) {
+            joiner.add("shut=" + state.getShut());
+        }
+        if (state.getColorBrightness() != null) {
+            joiner.add("color_brightness=" + state.getColorBrightness());
+        }
+        return joiner;
+    }
+
 }
