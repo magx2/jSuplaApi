@@ -49,13 +49,11 @@ class MainSpecification extends Specification {
 		channels == device.channels
 	}
 
-	@Ignore("Not implemented on server side! Check https://github.com/magx2/jSuplaServerMock/issues/8")
 	def "should find all locations"() {
 		expect:
 		api.locationApi.findLocations()
 	}
 
-	@Ignore("Not implemented on server side! Check https://github.com/magx2/jSuplaServerMock/issues/8")
 	def "should find location"() {
 		given:
 		def location = api.locationApi.findLocations().first()

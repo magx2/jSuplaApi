@@ -39,7 +39,7 @@ dependencies {
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.assertj:assertj-core:3.11.1"
-	testCompile 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.12'
+	testCompile 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.13'
 }
 
 apply from: 'integration-tests.gradle'
