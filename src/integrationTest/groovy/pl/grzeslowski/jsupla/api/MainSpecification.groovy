@@ -21,6 +21,17 @@ class MainSpecification extends Specification {
 		api.deviceApi.findDevices()
 	}
 
+	def "should find device"() {
+		given:
+		def device = api.deviceApi.findDevices().first()
+
+		when:
+		def findDevice = api.deviceApi.findDevice(device.id)
+
+		then:
+		findDevice == device
+	}
+
 	def "should find all channels"() {
 		expect:
 		api.channelApi.findChannels()
