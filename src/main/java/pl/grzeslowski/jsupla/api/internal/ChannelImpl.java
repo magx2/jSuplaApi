@@ -3,7 +3,6 @@ package pl.grzeslowski.jsupla.api.internal;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.Channel;
-import pl.grzeslowski.jsupla.api.channel.state.State;
 
 @ToString
 @EqualsAndHashCode
@@ -55,10 +54,5 @@ abstract class ChannelImpl implements Channel {
     @Override
     public boolean isConnected() {
         return connected;
-    }
-
-    @Override
-    public State getState() {
-        return null; // TODO
     }
 }
