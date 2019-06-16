@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.Channel;
 import io.swagger.client.model.ChannelState;
 import pl.grzeslowski.jsupla.api.Color;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
@@ -32,14 +33,22 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
     private final Integer param2;
     private final Integer param3;
 
-    StateImpl(final Integer param1,
-              final Integer param2,
-              final Integer param3,
-              final ChannelState state) {
+    private StateImpl(final Integer param1,
+                      final Integer param2,
+                      final Integer param3,
+                      final ChannelState state) {
         this.param1 = param1;
         this.param2 = param2;
         this.param3 = param3;
         this.state = requireNonNull(state);
+    }
+
+    StateImpl(Channel channel) {
+        this(
+                channel.getParam1(),
+                channel.getParam2(),
+                channel.getParam3(),
+                channel.getState());
     }
 
     @Override

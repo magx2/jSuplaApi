@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import io.swagger.client.model.ChannelFunctionEnumNames;
+import io.swagger.client.model.Channel;
 
 final class ChannelFunctionDispatcher {
     static final ChannelFunctionDispatcher DISPATCHER = new ChannelFunctionDispatcher();
@@ -12,134 +12,135 @@ final class ChannelFunctionDispatcher {
 
     }
 
-    <T> T dispatch(final ChannelFunctionEnumNames name, FunctionSwitch<T> functionSwitch) {
-        switch (name) {
+    @SuppressWarnings("SameParameterValue")
+    <T> T dispatch(final Channel channel, FunctionSwitch<T> functionSwitch) {
+        switch (channel.getFunction().getName()) {
             case NONE:
-                return functionSwitch.onNone(name);
+                return functionSwitch.onNone(channel);
             case CONTROLLINGTHEGATEWAYLOCK:
-                return functionSwitch.onControllingTheGatewayLock(name);
+                return functionSwitch.onControllingTheGatewayLock(channel);
             case CONTROLLINGTHEGATE:
-                return functionSwitch.onControllingTheGate(name);
+                return functionSwitch.onControllingTheGate(channel);
             case CONTROLLINGTHEGARAGEDOOR:
-                return functionSwitch.onControllingTheGarageDoor(name);
+                return functionSwitch.onControllingTheGarageDoor(channel);
             case THERMOMETER:
-                return functionSwitch.onThermometer(name);
+                return functionSwitch.onThermometer(channel);
             case HUMIDITY:
-                return functionSwitch.onHumidity(name);
+                return functionSwitch.onHumidity(channel);
             case HUMIDITYANDTEMPERATURE:
-                return functionSwitch.onHumidityAndTemperature(name);
+                return functionSwitch.onHumidityAndTemperature(channel);
             case OPENINGSENSOR_GATEWAY:
-                return functionSwitch.onOpeningSensorGateway(name);
+                return functionSwitch.onOpeningSensorGateway(channel);
             case OPENINGSENSOR_GATE:
-                return functionSwitch.onOpeningSensorGate(name);
+                return functionSwitch.onOpeningSensorGate(channel);
             case OPENINGSENSOR_GARAGEDOOR:
-                return functionSwitch.onOpeningSensorGarageDoor(name);
+                return functionSwitch.onOpeningSensorGarageDoor(channel);
             case NOLIQUIDSENSOR:
-                return functionSwitch.onNoLiquidSensor(name);
+                return functionSwitch.onNoLiquidSensor(channel);
             case CONTROLLINGTHEDOORLOCK:
-                return functionSwitch.onControllingTheDoorLock(name);
+                return functionSwitch.onControllingTheDoorLock(channel);
             case OPENINGSENSOR_DOOR:
-                return functionSwitch.onOpeningSensorDoor(name);
+                return functionSwitch.onOpeningSensorDoor(channel);
             case CONTROLLINGTHEROLLERSHUTTER:
-                return functionSwitch.onControllingTheRollerShutter(name);
+                return functionSwitch.onControllingTheRollerShutter(channel);
             case OPENINGSENSOR_ROLLERSHUTTER:
-                return functionSwitch.onOpeningSensorRollerShutter(name);
+                return functionSwitch.onOpeningSensorRollerShutter(channel);
             case POWERSWITCH:
-                return functionSwitch.onPowerSwitch(name);
+                return functionSwitch.onPowerSwitch(channel);
             case LIGHTSWITCH:
-                return functionSwitch.onLightSwitch(name);
+                return functionSwitch.onLightSwitch(channel);
             case DIMMER:
-                return functionSwitch.onDimmer(name);
+                return functionSwitch.onDimmer(channel);
             case RGBLIGHTING:
-                return functionSwitch.onRgbLighting(name);
+                return functionSwitch.onRgbLighting(channel);
             case DIMMERANDRGBLIGHTING:
-                return functionSwitch.onDimmerAndRgbLightning(name);
+                return functionSwitch.onDimmerAndRgbLightning(channel);
             case DEPTHSENSOR:
-                return functionSwitch.onDepthSensor(name);
+                return functionSwitch.onDepthSensor(channel);
             case DISTANCESENSOR:
-                return functionSwitch.onDistanceSensor(name);
+                return functionSwitch.onDistanceSensor(channel);
             case OPENINGSENSOR_WINDOW:
-                return functionSwitch.onOpeningSensorWindow(name);
+                return functionSwitch.onOpeningSensorWindow(channel);
             case MAILSENSOR:
-                return functionSwitch.onMailSensor(name);
+                return functionSwitch.onMailSensor(channel);
             case WINDSENSOR:
-                return functionSwitch.onWindSensor(name);
+                return functionSwitch.onWindSensor(channel);
             case PRESSURESENSOR:
-                return functionSwitch.onPressureSensor(name);
+                return functionSwitch.onPressureSensor(channel);
             case RAINSENSOR:
-                return functionSwitch.onRainSensor(name);
+                return functionSwitch.onRainSensor(channel);
             case WEIGHTSENSOR:
-                return functionSwitch.onWeightSensor(name);
+                return functionSwitch.onWeightSensor(channel);
             case WEATHER_STATION:
-                return functionSwitch.onWeatherStation(name);
+                return functionSwitch.onWeatherStation(channel);
             case STAIRCASETIMER:
-                return functionSwitch.onStaircaseTimer(name);
+                return functionSwitch.onStaircaseTimer(channel);
             default:
-                return functionSwitch.onDefault(name);
+                return functionSwitch.onDefault(channel);
         }
     }
 
     public interface FunctionSwitch<T> {
-        T onNone(ChannelFunctionEnumNames name);
+        T onNone(Channel channel);
 
-        T onControllingTheGatewayLock(ChannelFunctionEnumNames name);
+        T onControllingTheGatewayLock(Channel channel);
 
-        T onControllingTheGate(ChannelFunctionEnumNames name);
+        T onControllingTheGate(Channel channel);
 
-        T onControllingTheGarageDoor(ChannelFunctionEnumNames name);
+        T onControllingTheGarageDoor(Channel channel);
 
-        T onThermometer(ChannelFunctionEnumNames name);
+        T onThermometer(Channel channel);
 
-        T onHumidity(ChannelFunctionEnumNames name);
+        T onHumidity(Channel channel);
 
-        T onHumidityAndTemperature(ChannelFunctionEnumNames name);
+        T onHumidityAndTemperature(Channel channel);
 
-        T onOpeningSensorGateway(ChannelFunctionEnumNames name);
+        T onOpeningSensorGateway(Channel channel);
 
-        T onOpeningSensorGate(ChannelFunctionEnumNames name);
+        T onOpeningSensorGate(Channel channel);
 
-        T onOpeningSensorGarageDoor(ChannelFunctionEnumNames name);
+        T onOpeningSensorGarageDoor(Channel channel);
 
-        T onNoLiquidSensor(ChannelFunctionEnumNames name);
+        T onNoLiquidSensor(Channel channel);
 
-        T onControllingTheDoorLock(ChannelFunctionEnumNames name);
+        T onControllingTheDoorLock(Channel channel);
 
-        T onOpeningSensorDoor(ChannelFunctionEnumNames name);
+        T onOpeningSensorDoor(Channel channel);
 
-        T onControllingTheRollerShutter(ChannelFunctionEnumNames name);
+        T onControllingTheRollerShutter(Channel channel);
 
-        T onOpeningSensorRollerShutter(ChannelFunctionEnumNames name);
+        T onOpeningSensorRollerShutter(Channel channel);
 
-        T onPowerSwitch(ChannelFunctionEnumNames name);
+        T onPowerSwitch(Channel channel);
 
-        T onLightSwitch(ChannelFunctionEnumNames name);
+        T onLightSwitch(Channel channel);
 
-        T onDimmer(ChannelFunctionEnumNames name);
+        T onDimmer(Channel channel);
 
-        T onRgbLighting(ChannelFunctionEnumNames name);
+        T onRgbLighting(Channel channel);
 
-        T onDimmerAndRgbLightning(ChannelFunctionEnumNames name);
+        T onDimmerAndRgbLightning(Channel channel);
 
-        T onDepthSensor(ChannelFunctionEnumNames name);
+        T onDepthSensor(Channel channel);
 
-        T onDistanceSensor(ChannelFunctionEnumNames name);
+        T onDistanceSensor(Channel channel);
 
-        T onOpeningSensorWindow(ChannelFunctionEnumNames name);
+        T onOpeningSensorWindow(Channel channel);
 
-        T onMailSensor(ChannelFunctionEnumNames name);
+        T onMailSensor(Channel channel);
 
-        T onWindSensor(ChannelFunctionEnumNames name);
+        T onWindSensor(Channel channel);
 
-        T onPressureSensor(ChannelFunctionEnumNames name);
+        T onPressureSensor(Channel channel);
 
-        T onRainSensor(ChannelFunctionEnumNames name);
+        T onRainSensor(Channel channel);
 
-        T onWeightSensor(ChannelFunctionEnumNames name);
+        T onWeightSensor(Channel channel);
 
-        T onWeatherStation(ChannelFunctionEnumNames name);
+        T onWeatherStation(Channel channel);
 
-        T onStaircaseTimer(ChannelFunctionEnumNames name);
+        T onStaircaseTimer(Channel channel);
 
-        T onDefault(ChannelFunctionEnumNames name);
+        T onDefault(Channel channel);
     }
 }

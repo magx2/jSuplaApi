@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.api.internal.ChannelDispatcher.INSTANCE;
 
 @ToString
 @EqualsAndHashCode
@@ -36,7 +37,7 @@ final class DeviceImpl implements Device {
         this.guid = device.getGUIDString();
         this.channels = device.getChannels()
                                 .stream()
-                                .map(ChannelImpl::new)
+                                .map(channel -> ChannelFunctionDispatcher.DISPATCHER.dispatch(channel, INSTANCE))
                                 .collect(Collectors.toCollection(TreeSet::new));
     }
 
