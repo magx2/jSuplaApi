@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.Channel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.DimmerAndRgbLightningChannel;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
-import pl.grzeslowski.jsupla.api.generated.model.Channel;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

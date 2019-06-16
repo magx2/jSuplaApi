@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.Channel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.state.PartialOpenState;
-import pl.grzeslowski.jsupla.api.generated.model.Channel;
 
 import java.util.Optional;
 

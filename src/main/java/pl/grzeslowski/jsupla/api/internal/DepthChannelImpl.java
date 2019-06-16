@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.Channel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.DepthChannel;
 import pl.grzeslowski.jsupla.api.channel.state.DepthState;
-import pl.grzeslowski.jsupla.api.generated.model.Channel;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

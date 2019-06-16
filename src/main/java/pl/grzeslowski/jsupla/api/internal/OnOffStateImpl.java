@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.Channel;
+import io.swagger.client.model.ChannelState;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
-import pl.grzeslowski.jsupla.api.generated.model.Channel;
-import pl.grzeslowski.jsupla.api.generated.model.ChannelState;
 
 import java.util.function.Function;
 
