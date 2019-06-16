@@ -1573,15 +1573,19 @@ components:
       type: object
     ChannelState:
       properties:
+        connected:
+          type: boolean
         hi:
           type: boolean
-        partialHi:
+        partial_hi:
           type: boolean
         temperature:
           type: number
         humidity:
           type: number
-        isCalibrating:
+          min: 0
+          max: 100
+        is_calibrating:
           type: boolean
         shut:
           type: integer
@@ -1593,7 +1597,7 @@ components:
           type: integer
           min: 0
           max: 100
-        colorBrightness:
+        color_brightness:
           type: integer
           min: 0
           max: 100
@@ -1603,6 +1607,8 @@ components:
           type: number
         color:
           type: string
+      required:
+        - connected
     ChannelGroup:
       properties:
         id:
