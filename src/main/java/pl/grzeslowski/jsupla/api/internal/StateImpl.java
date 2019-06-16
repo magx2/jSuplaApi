@@ -172,17 +172,6 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
         }
     }
 
-    @Override
-    public Class<? extends State> getType() {
-        return type;
-    }
-
-    @Override
-    public <T extends State> T castTo(Class<? extends T> clazz) {
-        checkType(clazz);
-        return clazz.cast(this);
-    }
-
     private Class<? extends State> iniTypeDispatcher(final ChannelFunctionEnumNames name) {
         return type = ChannelFunctionDispatcher.DISPATCHER.dispatch(name, new ChannelFunctionDispatcher.FunctionSwitch<Class<? extends State>>() {
             @Override

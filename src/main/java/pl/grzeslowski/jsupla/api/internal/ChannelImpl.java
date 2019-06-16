@@ -26,6 +26,15 @@ abstract class ChannelImpl implements Channel {
         this.connected = connected;
     }
 
+    public ChannelImpl(io.swagger.client.model.Channel channel) {
+        this(
+                channel.getId(),
+                channel.getChannelNumber(),
+                channel.getCaption(),
+                channel.isHidden(),
+                channel.isConnected());
+    }
+
     @Override
     public final int compareTo(final Channel o) {
         return Integer.compare(getId(), o.getId());
