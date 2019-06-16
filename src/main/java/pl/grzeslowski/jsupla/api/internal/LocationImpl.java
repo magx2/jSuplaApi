@@ -17,7 +17,7 @@ final class LocationImpl implements Location {
     private final SortedSet<Device> devices;
     private final String caption;
 
-    LocationImpl(pl.grzeslowski.jsupla.api.internal.generated.model.Location location) {
+    LocationImpl(io.swagger.client.model.Location location) {
         id = location.getId();
         password = location.getPassword().toCharArray();
         devices = location.getIodevices()

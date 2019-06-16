@@ -1,5 +1,11 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.ApiClient;
+import io.swagger.client.ApiException;
+import io.swagger.client.api.ChannelsApi;
+import io.swagger.client.api.IoDevicesApi;
+import io.swagger.client.model.ChannelExecuteActionRequest;
+import io.swagger.client.model.ChannelFunctionActionEnum;
 import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.channel.action.Action;
@@ -12,12 +18,6 @@ import pl.grzeslowski.jsupla.api.channel.action.StopAction;
 import pl.grzeslowski.jsupla.api.channel.action.ToggleAction;
 import pl.grzeslowski.jsupla.api.channel.action.TurnOnOffAction;
 import pl.grzeslowski.jsupla.api.device.Device;
-import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
-import pl.grzeslowski.jsupla.api.internal.generated.ApiException;
-import pl.grzeslowski.jsupla.api.internal.generated.api.ChannelsApi;
-import pl.grzeslowski.jsupla.api.internal.generated.api.IoDevicesApi;
-import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelExecuteActionRequest;
-import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -26,21 +26,21 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static io.swagger.client.model.ChannelFunctionActionEnum.OPEN_CLOSE;
+import static io.swagger.client.model.ChannelFunctionActionEnum.SET_RGBW_PARAMETERS;
+import static io.swagger.client.model.ChannelFunctionActionEnum.SHUT;
+import static io.swagger.client.model.ChannelFunctionActionEnum.STOP;
+import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_OFF;
+import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_ON;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.OPEN_CLOSE;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.SET_RGBW_PARAMETERS;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.SHUT;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.STOP;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.TURN_OFF;
-import static pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionActionEnum.TURN_ON;
 
-public final class ChannelApiImpl implements ChannelApi {
-    public static final List<String> DEFAULT_INCLUDE = asList("connected", "state");
+final class ChannelApiImpl implements ChannelApi {
+    private static final List<String> DEFAULT_INCLUDE = asList("connected", "state");
     private final ChannelsApi channelsApi;
     private final IoDevicesApi ioDevicesApi;
 
-    public ChannelApiImpl(final ApiClient apiClient) {
+    ChannelApiImpl(final ApiClient apiClient) {
         channelsApi = new ChannelsApi(apiClient);
         ioDevicesApi = new IoDevicesApi(apiClient);
     }
@@ -78,7 +78,7 @@ public final class ChannelApiImpl implements ChannelApi {
         }
     }
 
-    private Channel mapToChannel(pl.grzeslowski.jsupla.api.internal.generated.model.Channel channel) {
+    private Channel mapToChannel(io.swagger.client.model.Channel channel) {
         return new ChannelImpl(channel);
     }
 

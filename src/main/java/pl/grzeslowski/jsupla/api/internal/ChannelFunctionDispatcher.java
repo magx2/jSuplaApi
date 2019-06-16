@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionEnumNames;
+import io.swagger.client.model.ChannelFunctionEnumNames;
 
 final class ChannelFunctionDispatcher {
     static final ChannelFunctionDispatcher DISPATCHER = new ChannelFunctionDispatcher();

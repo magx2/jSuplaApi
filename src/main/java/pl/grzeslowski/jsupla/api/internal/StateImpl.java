@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.model.ChannelFunctionEnumNames;
+import io.swagger.client.model.ChannelState;
 import pl.grzeslowski.jsupla.api.Color;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
@@ -14,8 +16,6 @@ import pl.grzeslowski.jsupla.api.channel.state.RollerShutterState;
 import pl.grzeslowski.jsupla.api.channel.state.State;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureAndHumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureState;
-import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelFunctionEnumNames;
-import pl.grzeslowski.jsupla.api.internal.generated.model.ChannelState;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -103,14 +103,14 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
         if (param3 == null) {
             return Optional.empty();
         } else {
-            return Optional.of(state.getPartialHi() ? ON : OFF);
+            return Optional.of(state.isPartialHi() ? ON : OFF);
         }
     }
 
     @Override
     public boolean isCalibrating() {
         checkType(PartialOpenState.class);
-        return state.getCalibrating();
+        return state.isIsCalibrating();
     }
 
     @Override
@@ -129,10 +129,10 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
     public OnOff getOnfOff() {
         checkType(OnOffState.class);
         final boolean booleanState;
-        if (state.getHi() != null) {
-            booleanState = state.getHi();
-        } else if (state.getOn() != null) {
-            booleanState = state.getOn();
+        if (state.isHi() != null) {
+            booleanState = state.isHi();
+        } else if (state.isOn() != null) {
+            booleanState = state.isOn();
         } else {
             throw new IllegalStateException();
         }
@@ -354,11 +354,11 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
 
     @SuppressWarnings("Duplicates")
     private StringJoiner stateToString(StringJoiner joiner) {
-        if (state.getOn() != null) {
-            joiner.add("on=" + state.getOn());
+        if (state.isOn() != null) {
+            joiner.add("on=" + state.isOn());
         }
-        if (state.getHi() != null) {
-            joiner.add("hi=" + state.getHi());
+        if (state.isHi() != null) {
+            joiner.add("hi=" + state.isHi());
         }
         if (state.getHumidity() != null) {
             joiner.add("humidity=" + state.getHumidity());
@@ -372,8 +372,8 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
         if (state.getColor() != null) {
             joiner.add("color=" + state.getColor());
         }
-        if (state.getCalibrating() != null) {
-            joiner.add("calibrating=" + state.getCalibrating());
+        if (state.isIsCalibrating() != null) {
+            joiner.add("calibrating=" + state.isIsCalibrating());
         }
         if (state.getDepth() != null) {
             joiner.add("depth=" + state.getDepth());
@@ -381,8 +381,8 @@ final class StateImpl implements BrightnessState, ColorAndBrightnessState, Color
         if (state.getDistance() != null) {
             joiner.add("distance=" + state.getDistance());
         }
-        if (state.getPartialHi() != null) {
-            joiner.add("partialHi=" + state.getPartialHi());
+        if (state.isPartialHi() != null) {
+            joiner.add("partialHi=" + state.isPartialHi());
         }
         if (state.getShut() != null) {
             joiner.add("shut=" + state.getShut());

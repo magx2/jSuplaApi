@@ -1,14 +1,13 @@
 package pl.grzeslowski.jsupla.api.internal;
 
-import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
-import pl.grzeslowski.jsupla.api.internal.generated.auth.OAuth;
+import io.swagger.client.ApiClient;
+import io.swagger.client.auth.OAuth;
 
 import java.util.Base64;
 
-import static pl.grzeslowski.jsupla.api.internal.generated.ApiClient.API_VERSION;
-
 final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
+    private static final String API_VERSION = "2.3.0";
 
     private ApiClientFactory() {
     }
@@ -21,6 +20,7 @@ final class ApiClientFactory {
      */
     public ApiClient newApiClient(String oAuthToken) {
         ApiClient client = new ApiClient();
+        client.setUserAgent("magx2/jSuplaApi");
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
         password.setAccessToken(oAuthToken);
         String[] split = oAuthToken.split("\\.");

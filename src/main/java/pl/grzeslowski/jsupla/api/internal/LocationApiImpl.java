@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.ApiClient;
+import io.swagger.client.api.LocationsApi;
 import pl.grzeslowski.jsupla.api.ApiException;
 import pl.grzeslowski.jsupla.api.LocationApi;
-import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
-import pl.grzeslowski.jsupla.api.internal.generated.api.LocationsApi;
 import pl.grzeslowski.jsupla.api.location.Location;
 
 import java.util.List;
@@ -25,7 +25,7 @@ final class LocationApiImpl implements LocationApi {
     public Location findLocation(final int id) {
         try {
             return mapToLocation(locationsApi.getLocation(id, DEFAULT_INCLUDE));
-        } catch (pl.grzeslowski.jsupla.api.internal.generated.ApiException e) {
+        } catch (io.swagger.client.ApiException e) {
             throw new ApiException("/findLocation/" + id, e);
         }
     }
@@ -37,12 +37,12 @@ final class LocationApiImpl implements LocationApi {
                            .stream()
                            .map(this::mapToLocation)
                            .collect(toCollection(TreeSet::new));
-        } catch (pl.grzeslowski.jsupla.api.internal.generated.ApiException e) {
+        } catch (io.swagger.client.ApiException e) {
             throw new ApiException("/findLocations", e);
         }
     }
 
-    private Location mapToLocation(pl.grzeslowski.jsupla.api.internal.generated.model.Location location) {
+    private Location mapToLocation(io.swagger.client.model.Location location) {
         return new LocationImpl(location);
     }
 }

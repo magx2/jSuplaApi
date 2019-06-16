@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import io.swagger.client.ApiClient;
 import pl.grzeslowski.jsupla.api.Api;
 import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.LocationApi;
-import pl.grzeslowski.jsupla.api.internal.generated.ApiClient;
 
 import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
 

@@ -1,19 +1,39 @@
 plugins {
 	id "org.shipkit.java" version "2.0.31"
+	id 'org.hidetake.swagger.generator' version '2.18.1'
 }
 
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'maven'
 
 group = 'pl.grzeslowski.jsupla.api'
+
+dependencies {
+//	swaggerCodegen 'io.swagger:swagger-codegen-cli:2.4.2'             // Swagger Codegen V2
+	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
+//	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
+}
+
+// https://github.com/int128/gradle-swagger-generator-plugin
+swaggerSources {
+	suplaCloud {
+		inputFile = file("${rootDir}/src/main/resources/openapi.yaml")
+		code {
+			language = 'java'
+		}
+	}
+}
+compileJava.dependsOn generateSwaggerCode
+sourceSets.main.java.srcDir "${swaggerSources.suplaCloud.code.outputDir}/src/main/java"
+sourceSets.main.resources.srcDir "${swaggerSources.suplaCloud.code.outputDir}/src/main/resources"
 
 repositories {
 	jcenter()
 	maven { url "https://dl.bintray.com/big-boy/bigboy" }
+	jcenter()
 }
-
-apply plugin: 'java'
-apply plugin: 'maven'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
