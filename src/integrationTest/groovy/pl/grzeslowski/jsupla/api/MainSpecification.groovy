@@ -49,6 +49,24 @@ class MainSpecification extends Specification {
 		channels == device.channels
 	}
 
+	@Ignore("Not implemented on server side!")
+	def "should find channel group"() {
+		given:
+		def channelGroup = api.channelGroupApi.findChannelGroups().first()
+
+		when:
+		def findChannelGroup = api.channelGroupApi.findChannelGroup(channelGroup.id)
+
+		then:
+		findChannelGroup == channelGroup
+	}
+
+	@Ignore("Not implemented on server side!")
+	def "should find all channel groups"() {
+		expect:
+		api.channelGroupApi.findChannelGroups()
+	}
+
 	def "should find all locations"() {
 		expect:
 		api.locationApi.findLocations()

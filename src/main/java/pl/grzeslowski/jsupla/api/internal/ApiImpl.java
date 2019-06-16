@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import io.swagger.client.ApiClient;
 import pl.grzeslowski.jsupla.api.Api;
 import pl.grzeslowski.jsupla.api.ChannelApi;
+import pl.grzeslowski.jsupla.api.ChannelGroupApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.LocationApi;
 
@@ -22,6 +23,11 @@ public final class ApiImpl implements Api {
 
     @Override
     public ChannelApi getChannelApi() {
+        return new ChannelApiImpl(apiClient);
+    }
+
+    @Override
+    public ChannelGroupApi getChannelGroupApi() {
         return new ChannelApiImpl(apiClient);
     }
 

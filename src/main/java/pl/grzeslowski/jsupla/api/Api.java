@@ -11,5 +11,7 @@ public interface Api {
 
     ChannelApi getChannelApi();
 
+    ChannelGroupApi getChannelGroupApi();
+
     LocationApi getLocationApi();
 }

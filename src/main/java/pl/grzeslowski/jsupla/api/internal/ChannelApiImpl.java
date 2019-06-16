@@ -2,11 +2,13 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
+import io.swagger.client.api.ChannelGroupsApi;
 import io.swagger.client.api.ChannelsApi;
 import io.swagger.client.api.IoDevicesApi;
 import io.swagger.client.model.ChannelExecuteActionRequest;
 import io.swagger.client.model.ChannelFunctionActionEnum;
 import pl.grzeslowski.jsupla.api.ChannelApi;
+import pl.grzeslowski.jsupla.api.ChannelGroupApi;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.channel.action.Action;
 import pl.grzeslowski.jsupla.api.channel.action.OpenCloseAction;
@@ -17,6 +19,7 @@ import pl.grzeslowski.jsupla.api.channel.action.ShutRevealAction;
 import pl.grzeslowski.jsupla.api.channel.action.StopAction;
 import pl.grzeslowski.jsupla.api.channel.action.ToggleAction;
 import pl.grzeslowski.jsupla.api.channel.action.TurnOnOffAction;
+import pl.grzeslowski.jsupla.api.channelgroup.ChannelGroup;
 import pl.grzeslowski.jsupla.api.device.Device;
 
 import java.util.List;
@@ -33,16 +36,20 @@ import static io.swagger.client.model.ChannelFunctionActionEnum.STOP;
 import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_OFF;
 import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_ON;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.api.internal.ChannelDispatcher.INSTANCE;
 
-final class ChannelApiImpl implements ChannelApi {
+final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
     private static final List<String> DEFAULT_INCLUDE = asList("connected", "state");
+    private static final List<String> CHANNEL_GROUP_DEFAULT_INCLUDE = singletonList("channels");
     private final ChannelsApi channelsApi;
+    private final ChannelGroupsApi channelGroupsApi;
     private final IoDevicesApi ioDevicesApi;
 
     ChannelApiImpl(final ApiClient apiClient) {
         channelsApi = new ChannelsApi(apiClient);
+        channelGroupsApi = new ChannelGroupsApi(apiClient);
         ioDevicesApi = new IoDevicesApi(apiClient);
     }
 
@@ -89,9 +96,19 @@ final class ChannelApiImpl implements ChannelApi {
         try {
             channelsApi.executeAction(body, channel.getId());
         } catch (ApiException e) {
-            throw new pl.grzeslowski.jsupla.api.ApiException("/updateState/" + channel.getId() + "/" + action, e);
+            throw new pl.grzeslowski.jsupla.api.ApiException("/updateState/" + channel.getId() + "/" + action + " (Channel)", e);
         }
         return memoize(() -> findChannel(channel.getId()));
+    }
+
+    @Override
+    public void updateState(final ChannelGroup channelGroup, final Action action) {
+        final ChannelExecuteActionRequest body = buildChannelExecuteActionRequest(action);
+        try {
+            channelGroupsApi.executeChannelGroupAction(body, channelGroup.getId());
+        } catch (ApiException e) {
+            throw new pl.grzeslowski.jsupla.api.ApiException("/updateState/" + channelGroup.getId() + "/" + action + " (ChannelGroup)", e);
+        }
     }
 
     private ChannelExecuteActionRequest buildChannelExecuteActionRequest(final Action action) {
@@ -136,5 +153,26 @@ final class ChannelApiImpl implements ChannelApi {
             }
             return val;
         };
+    }
+
+    @Override
+    public ChannelGroup findChannelGroup(final int id) {
+        try {
+            return new ChannelGroupImpl(channelGroupsApi.getChannelGroup(id, CHANNEL_GROUP_DEFAULT_INCLUDE));
+        } catch (ApiException e) {
+            throw new pl.grzeslowski.jsupla.api.ApiException("/findChannelGroup/" + id, e);
+        }
+    }
+
+    @Override
+    public SortedSet<ChannelGroup> findChannelGroups() {
+        try {
+            return channelGroupsApi.getChannelGroups(CHANNEL_GROUP_DEFAULT_INCLUDE)
+                           .stream()
+                           .map(ChannelGroupImpl::new)
+                           .collect(Collectors.toCollection(TreeSet::new));
+        } catch (ApiException e) {
+            throw new pl.grzeslowski.jsupla.api.ApiException("/findChannelGroups/", e);
+        }
     }
 }
