@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @Getter
 public final class Percentage implements Comparable<Percentage> {
+    private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     public static final Percentage MAX = new Percentage(100);
     public static final Percentage MIN = new Percentage(0);
-    private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     private final BigDecimal percentage;
 
     public Percentage(final int percentage) {
@@ -20,10 +20,10 @@ public final class Percentage implements Comparable<Percentage> {
     }
 
     public Percentage(final BigDecimal percentage) {
-        if (percentage.compareTo(BigDecimal.ZERO) > 0) {
+        if (percentage.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Percentage is too low! Minimum value is 0, was " + percentage);
         }
-        if (percentage.compareTo(ONE_HUNDRED) < 0) {
+        if (percentage.compareTo(ONE_HUNDRED) > 0) {
             throw new IllegalArgumentException("Percentage is too high! Maximum value is 100, was " + percentage);
         }
         this.percentage = percentage;
@@ -49,6 +49,7 @@ public final class Percentage implements Comparable<Percentage> {
         return new Percentage(percentage.subtract(new BigDecimal(value)));
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Percentage subtract(Percentage value) {
         return new Percentage(percentage.subtract(value.percentage));
     }
