@@ -13,7 +13,7 @@ import static java.math.RoundingMode.CEILING;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class ThermometerChannelImpl extends ChannelImpl implements TemperatureChannel {
+final class ThermometerChannelImpl extends ChannelImpl implements TemperatureChannel {
     private final TemperatureState state;
 
     ThermometerChannelImpl(final Channel channel) {
