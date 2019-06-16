@@ -21,12 +21,12 @@ final class TemperatureAndHumidityStateImpl implements TemperatureAndHumiditySta
     }
 
     @Override
-    public Percentage getHumidity() {
+    public Percentage getHumidityState() {
         return humidityState;
     }
 
     @Override
-    public BigDecimal getTemperature() {
+    public BigDecimal getTemperatureState() {
         return temperatureState;
     }
 }

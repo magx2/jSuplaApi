@@ -30,7 +30,7 @@ final class BigDecimalState implements DepthState, DistanceState, TemperatureSta
     }
 
     @Override
-    public BigDecimal getTemperature() {
+    public BigDecimal getTemperatureState() {
         return bigDecimal;
     }
 }

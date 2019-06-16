@@ -18,8 +18,8 @@ final class TemperatureAndHumidityChannelImpl extends ChannelImpl implements Tem
         final TemperatureState temperatureState = new TemperatureChannelImpl(channel).getState();
         final HumidityState humidityState = new HumidityChannelImpl(channel).getState();
         state = new TemperatureAndHumidityStateImpl(
-                humidityState.getHumidity(),
-                temperatureState.getTemperature()
+                humidityState.getHumidityState(),
+                temperatureState.getTemperatureState()
         );
     }
 

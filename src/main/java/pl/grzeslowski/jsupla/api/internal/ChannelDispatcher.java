@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.api.channel.Channel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitch<Channel> {
-    public static final ChannelDispatcher INSTANCE = new ChannelDispatcher();
+    static final ChannelDispatcher INSTANCE = new ChannelDispatcher();
 
     @Override
     public Channel onNone(final io.swagger.client.model.Channel channel) {

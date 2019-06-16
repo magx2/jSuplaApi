@@ -34,6 +34,7 @@ import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_OFF;
 import static io.swagger.client.model.ChannelFunctionActionEnum.TURN_ON;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.api.internal.ChannelDispatcher.INSTANCE;
 
 final class ChannelApiImpl implements ChannelApi {
     private static final List<String> DEFAULT_INCLUDE = asList("connected", "state");
@@ -79,7 +80,7 @@ final class ChannelApiImpl implements ChannelApi {
     }
 
     private Channel mapToChannel(io.swagger.client.model.Channel channel) {
-        return new ChannelImpl(channel);
+        return ChannelFunctionDispatcher.DISPATCHER.dispatch(channel, INSTANCE);
     }
 
     @Override

@@ -21,7 +21,7 @@ final class HsbTypeConverter {
         return format("%s%s%s%s", HEX_PREFIX, redHex, greenHex, blueHex);
     }
 
-    public String toCloudFormat(Color.Rgb rgb) {
+    String toCloudFormat(Color.Rgb rgb) {
         return toCloudFormat(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
     }
 
@@ -33,7 +33,7 @@ final class HsbTypeConverter {
         return addZeroPrefix ? "0" + hex : hex;
     }
 
-    public Color.Hsv toHsv(String hex, Integer brightness) {
+    Color.Hsv toHsv(String hex, Integer brightness) {
         if (!hex.startsWith(HEX_PREFIX)) {
             throw new IllegalArgumentException("Hex should start with `" + HEX_PREFIX + "`. Was " + hex);
         }

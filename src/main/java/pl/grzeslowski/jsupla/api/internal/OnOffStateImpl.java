@@ -18,11 +18,11 @@ class OnOffStateImpl implements OnOffState {
     private final OnOff onOff;
 
     static OnOffState hi(Channel channel) {
-        return new OnOffStateImpl(channel, ChannelState::getHi);
+        return new OnOffStateImpl(channel, ChannelState::isHi);
     }
 
     static OnOffState on(Channel channel) {
-        return new OnOffStateImpl(channel, ChannelState::getOn);
+        return new OnOffStateImpl(channel, ChannelState::isOn);
     }
 
     private OnOffStateImpl(final OnOff onOff) {
