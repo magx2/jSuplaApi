@@ -57,8 +57,4 @@ public final class Percentage implements Comparable<Percentage> {
     public int compareTo(final Percentage o) {
         return percentage.compareTo(o.percentage);
     }
-
-    public Percentage invert() {
-        return MAX.subtract(this);
-    }
 }

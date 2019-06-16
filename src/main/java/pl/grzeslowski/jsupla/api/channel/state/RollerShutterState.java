@@ -4,6 +4,4 @@ public interface RollerShutterState extends OnOffState {
     boolean isCalibrating();
 
     Percentage getShut();
-
-    Percentage getOpen();
 }

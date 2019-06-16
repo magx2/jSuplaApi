@@ -5,32 +5,26 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.channel.state.State;
 
-import static java.util.Objects.requireNonNull;
-
 @ToString
 @EqualsAndHashCode
-final class ChannelImpl implements Channel {
-    private final State state;
-    private Integer id;
-    private Integer channelNumber;
-    private String caption;
-    private Boolean hidden;
-    private Boolean connected;
+abstract class ChannelImpl implements Channel {
+    private final int id;
+    private final int channelNumber;
+    private final String caption;
+    private final boolean hidden;
+    private final boolean connected;
 
-    ChannelImpl(io.swagger.client.model.Channel channel) {
-        requireNonNull(channel);
-        id = channel.getId();
-        channelNumber = channel.getChannelNumber();
-        caption = channel.getCaption();
-        hidden = channel.isHidden();
-        connected = channel.isConnected();
-        this.state = new StateImpl(
-                channel.getParam1(),
-                channel.getParam2(),
-                channel.getParam3(),
-                channel.getFunction().getName(),
-                channel.getState()
-        );
+    protected ChannelImpl(
+            final int id,
+            final int channelNumber,
+            final String caption,
+            final boolean hidden,
+            final boolean connected) {
+        this.id = id;
+        this.channelNumber = channelNumber;
+        this.caption = caption;
+        this.hidden = hidden;
+        this.connected = connected;
     }
 
     @Override
@@ -65,6 +59,6 @@ final class ChannelImpl implements Channel {
 
     @Override
     public State getState() {
-        return state;
+        return null; // TODO
     }
 }
