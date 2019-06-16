@@ -13,10 +13,10 @@ import static java.math.RoundingMode.CEILING;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TemperatureChannelImpl extends ChannelImpl implements TemperatureChannel {
+public class ThermometerChannelImpl extends ChannelImpl implements TemperatureChannel {
     private final TemperatureState state;
 
-    TemperatureChannelImpl(final Channel channel) {
+    ThermometerChannelImpl(final Channel channel) {
         super(channel);
         this.state = new BigDecimalState(findTemperature(channel));
     }

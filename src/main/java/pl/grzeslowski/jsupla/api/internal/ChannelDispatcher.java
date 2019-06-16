@@ -10,156 +10,156 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onNone(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onControllingTheGatewayLock(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onControllingTheGate(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new GateChannelImpl(channel);
     }
 
     @Override
     public Channel onControllingTheGarageDoor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onThermometer(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new ThermometerChannelImpl(channel);
     }
 
     @Override
     public Channel onHumidity(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HumidityChannelImpl(channel);
     }
 
     @Override
     public Channel onHumidityAndTemperature(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new TemperatureAndHumidityChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorGateway(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorGate(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorGarageDoor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onNoLiquidSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onControllingTheDoorLock(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorDoor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onControllingTheRollerShutter(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new RollerShutterChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorRollerShutter(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onPowerSwitch(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new OnChannelImpl(channel);
     }
 
     @Override
     public Channel onLightSwitch(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new OnChannelImpl(channel);
     }
 
     @Override
     public Channel onDimmer(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new DimmerChannelImpl(channel);
     }
 
     @Override
     public Channel onRgbLighting(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new RgbLightningChannelImpl(channel);
     }
 
     @Override
     public Channel onDimmerAndRgbLightning(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new DimmerAndRgbLightningChannelImpl(channel);
     }
 
     @Override
     public Channel onDepthSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new DepthChannelImpl(channel);
     }
 
     @Override
     public Channel onDistanceSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new DistanceChannelImpl(channel);
     }
 
     @Override
     public Channel onOpeningSensorWindow(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onMailSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new HiChannelImpl(channel);
     }
 
     @Override
     public Channel onWindSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onPressureSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onRainSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onWeightSensor(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onWeatherStation(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 
     @Override
     public Channel onStaircaseTimer(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new OnChannelImpl(channel);
     }
 
     @Override
     public Channel onDefault(final io.swagger.client.model.Channel channel) {
-        return null;
+        return new NoneChannelImpl(channel);
     }
 }
