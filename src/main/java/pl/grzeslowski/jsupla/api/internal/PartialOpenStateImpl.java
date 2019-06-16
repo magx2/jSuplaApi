@@ -22,7 +22,7 @@ final class PartialOpenStateImpl implements PartialOpenState {
         if (channel.getParam3() == null) {
             partialState = null;
         } else {
-            partialState = channel.getState().getPartialHi() ? ON : OFF;
+            partialState = channel.getState().isPartialHi() ? ON : OFF;
         }
     }
 
