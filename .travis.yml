@@ -6,8 +6,6 @@ matrix:
   - jdk: oraclejdk8
   - jdk: oraclejdk9
     env: SKIP_RELEASE=true
-  - jdk: oraclejdk11
-    env: SKIP_RELEASE=true
   - jdk: openjdk10
     env: SKIP_RELEASE=true
   - jdk: openjdk11
