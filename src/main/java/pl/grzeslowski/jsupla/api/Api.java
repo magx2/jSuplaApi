@@ -14,4 +14,6 @@ public interface Api {
     ChannelGroupApi getChannelGroupApi();
 
     LocationApi getLocationApi();
+
+    ServerInfoApi getServerInfoApi();
 }

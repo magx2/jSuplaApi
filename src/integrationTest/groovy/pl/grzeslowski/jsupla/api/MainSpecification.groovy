@@ -82,4 +82,9 @@ class MainSpecification extends Specification {
 		then:
 		findLocation == location
 	}
+
+	def "should find server info"() {
+		expect:
+		api.serverInfoApi.findServerInfo()
+	}
 }

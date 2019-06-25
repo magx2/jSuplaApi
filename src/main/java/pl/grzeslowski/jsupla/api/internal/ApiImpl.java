@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.ChannelGroupApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.LocationApi;
+import pl.grzeslowski.jsupla.api.ServerInfoApi;
 
 import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
 
@@ -34,5 +35,10 @@ public final class ApiImpl implements Api {
     @Override
     public LocationApi getLocationApi() {
         return new LocationApiImpl(apiClient);
+    }
+
+    @Override
+    public ServerInfoApi getServerInfoApi() {
+        return new ServerInfoApiImpl(apiClient);
     }
 }
