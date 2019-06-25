@@ -21,6 +21,7 @@ final class DeviceImpl implements Device {
     private final Integer id;
     private final Boolean enabled;
     private final String name;
+    private final String comment;
     private final String softwareVersion;
     private final ZonedDateTime lastConnected;
     private final String guid;
@@ -32,6 +33,7 @@ final class DeviceImpl implements Device {
         this.id = device.getId();
         this.enabled = device.isEnabled();
         this.name = device.getName();
+        this.comment = device.getComment();
         this.lastConnected = ZonedDateTime.parse(format, ISO_OFFSET_DATE_TIME);
         this.softwareVersion = device.getSoftwareVersion();
         this.guid = device.getGUIDString();
@@ -54,6 +56,11 @@ final class DeviceImpl implements Device {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getComment() {
+        return comment;
     }
 
     @Override

@@ -10,6 +10,8 @@ import java.util.SortedSet;
 public interface Device extends WithId, WithEnabled, Comparable<Device> {
     String getName();
 
+    String getComment();
+
     ZonedDateTime getLastConnected();
 
     String getSoftwareVersion();
