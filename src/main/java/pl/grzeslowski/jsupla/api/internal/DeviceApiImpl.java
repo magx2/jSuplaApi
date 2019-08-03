@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.IoDevicesApi;
+import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.device.Device;
 
@@ -16,9 +17,11 @@ import static java.util.Arrays.asList;
 final class DeviceApiImpl implements DeviceApi {
     private static final List<String> DEFAULT_INCLUDE = asList("channels", "connected");
     private final IoDevicesApi ioDevicesApi;
+    private final ChannelApi channelApi;
 
     DeviceApiImpl(final ApiClient apiClient) {
         this.ioDevicesApi = new IoDevicesApi(apiClient);
+        this.channelApi = new ChannelApiImpl(apiClient);
     }
 
     @Override

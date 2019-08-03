@@ -52,11 +52,18 @@ final class DeviceImpl implements Device {
         this.connected = device.isConnected();
         this.location = parseLocation(device.getLocation());
         this.originalLocation = parseLocation(device.getOriginalLocation());
-        this.channels = device.getChannels()
+        this.channels = parseChannels(device);
+        this.schedules = parseSchedules(device.getSchedules());
+    }
+
+    private TreeSet<Channel> parseChannels(final io.swagger.client.model.Device device) {
+        if (channels == null) {
+            return new TreeSet<>();
+        }
+        return device.getChannels()
                                 .stream()
                                 .map(Helper::parseChannel)
                                 .collect(Collectors.toCollection(TreeSet::new));
-        this.schedules = parseSchedules(device.getSchedules());
     }
 
     private SortedSet<Schedule> parseSchedules(final List<io.swagger.client.model.Schedule> schedules) {
