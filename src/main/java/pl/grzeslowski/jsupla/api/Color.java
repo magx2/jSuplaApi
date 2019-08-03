@@ -50,9 +50,9 @@ public class Color {
         }
 
         public Rgb(final int red, final int green, final int blue) {
-            this.red = checkBoundaries(red, 255);
-            this.green = checkBoundaries(green, 255);
-            this.blue = checkBoundaries(blue, 255);
+            this.red = checkBoundaries(red, 0, 255);
+            this.green = checkBoundaries(green, 0, 255);
+            this.blue = checkBoundaries(blue, 0, 255);
         }
 
         public Hsv toHsv() {
@@ -112,9 +112,9 @@ public class Color {
         }
 
         public Hsv(final double hue, final double saturation, final double value) {
-            this.hue = checkBoundaries(hue, 359.0);
-            this.saturation = checkBoundaries(saturation, 1.0);
-            this.value = checkBoundaries(value, 1.0);
+            this.hue = checkBoundaries(hue, 0.0, 359.0);
+            this.saturation = checkBoundaries(saturation, 0.0, 1.0);
+            this.value = checkBoundaries(value, 0.0, 1.0);
         }
 
         public Hsv setHue(final double hue) {
@@ -135,14 +135,22 @@ public class Color {
 
     }
 
-    private static double checkBoundaries(double x, double max) {
+    @SuppressWarnings("SameParameterValue")
+    private static double checkBoundaries(double x, double min, double max) {
+        if (x < min) {
+            throw new IllegalArgumentException("Given value `" + x + "` cannot be smaller than `" + min + "`!");
+        }
         if (x > max) {
             throw new IllegalArgumentException("Given value `" + x + "` cannot be bigger than `" + max + "`!");
         }
         return x;
     }
 
-    private static int checkBoundaries(int x, int max) {
+    @SuppressWarnings("SameParameterValue")
+    private static int checkBoundaries(int x, int min, int max) {
+        if (x < min) {
+            throw new IllegalArgumentException("Given value `" + x + "` cannot be smaller than `" + min + "`!");
+        }
         if (x > max) {
             throw new IllegalArgumentException("Given value `" + x + "` cannot be bigger than `" + max + "`!");
         }
