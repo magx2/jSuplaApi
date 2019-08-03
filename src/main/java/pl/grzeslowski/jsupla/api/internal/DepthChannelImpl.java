@@ -13,7 +13,7 @@ final class DepthChannelImpl extends ChannelImpl implements DepthChannel {
 
     DepthChannelImpl(final Channel channel) {
         super(channel);
-        state = new BigDecimalState(channel.getState().getDepth());
+        state = new DepthStateImpl(channel.getState().getDepth());
     }
 
     @Override

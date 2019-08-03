@@ -18,7 +18,7 @@ final class ThermometerChannelImpl extends ChannelImpl implements TemperatureCha
 
     ThermometerChannelImpl(final Channel channel) {
         super(channel);
-        this.state = new BigDecimalState(findTemperature(channel));
+        this.state = new TemperatureStateImpl(findTemperature(channel));
     }
 
     private BigDecimal findTemperature(Channel channel) {

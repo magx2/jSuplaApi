@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.api.channel.state;
 
 public interface OnOffState extends State {
-    OnOff getOnfOff();
+    OnOff getOnOffState();
 
     enum OnOff {
         ON, OFF;

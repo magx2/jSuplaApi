@@ -13,7 +13,7 @@ final class DistanceChannelImpl extends ChannelImpl implements DistanceChannel {
 
     DistanceChannelImpl(final Channel channel) {
         super(channel);
-        state = new BigDecimalState(channel.getState().getDistance());
+        state = new DistanceStateImpl(channel.getState().getDistance());
     }
 
     @Override
