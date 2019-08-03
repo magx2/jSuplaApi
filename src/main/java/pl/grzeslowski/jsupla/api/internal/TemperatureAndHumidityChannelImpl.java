@@ -4,27 +4,37 @@ import io.swagger.client.model.Channel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.TemperatureAndHumidityChannel;
-import pl.grzeslowski.jsupla.api.channel.state.HumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureAndHumidityState;
-import pl.grzeslowski.jsupla.api.channel.state.TemperatureState;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class TemperatureAndHumidityChannelImpl extends ChannelImpl implements TemperatureAndHumidityChannel {
     private final TemperatureAndHumidityState state;
+    private final ThermometerChannelImpl thermometerChannel;
+    private final HumidityChannelImpl humidityChannel;
 
     TemperatureAndHumidityChannelImpl(final Channel channel) {
         super(channel);
-        final TemperatureState temperatureState = new ThermometerChannelImpl(channel).getState();
-        final HumidityState humidityState = new HumidityChannelImpl(channel).getState();
+        thermometerChannel = new ThermometerChannelImpl(channel);
+        humidityChannel = new HumidityChannelImpl(channel);
         state = new TemperatureAndHumidityStateImpl(
-                humidityState.getHumidityState(),
-                temperatureState.getTemperatureState()
+                humidityChannel.getState().getHumidityState(),
+                thermometerChannel.getState().getTemperatureState()
         );
     }
 
     @Override
     public TemperatureAndHumidityState getState() {
         return state;
+    }
+
+    @Override
+    public int getTemperatureAdjustment() {
+        return thermometerChannel.getTemperatureAdjustment();
+    }
+
+    @Override
+    public int getHumidityAdjustment() {
+        return humidityChannel.getHumidityAdjustment();
     }
 }
