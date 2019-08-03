@@ -5,7 +5,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 
 import java.time.ZonedDateTime;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -25,7 +25,7 @@ final class Helper {
         return ChannelFunctionDispatcher.DISPATCHER.dispatch(channel, INSTANCE);
     }
 
-    static Set<Channel> parseChannels(final io.swagger.client.model.Device device) {
+    static SortedSet<Channel> parseChannels(final io.swagger.client.model.Device device) {
         if (device.getChannels() == null) {
             return new TreeSet<>();
         }
