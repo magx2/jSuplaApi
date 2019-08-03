@@ -76,17 +76,13 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
 
     @Override
     public SortedSet<Channel> findChannels(final Device device) {
-        return findChannels(device.getId());
-    }
-
-    SortedSet<Channel> findChannels(final int deviceId) {
         try {
-            return ioDevicesApi.getIoDeviceChannels(deviceId, DEFAULT_INCLUDE)
+            return ioDevicesApi.getIoDeviceChannels(device.getId(), singletonList("location"))
                            .stream()
                            .map(this::mapToChannel)
                            .collect(Collectors.toCollection(TreeSet::new));
         } catch (ApiException e) {
-            throw new pl.grzeslowski.jsupla.api.ApiException("/findChannels/" + deviceId, e);
+            throw new pl.grzeslowski.jsupla.api.ApiException("/findChannels/" + device.getId(), e);
         }
     }
 

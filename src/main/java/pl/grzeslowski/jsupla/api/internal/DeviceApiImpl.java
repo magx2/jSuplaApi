@@ -47,7 +47,10 @@ final class DeviceApiImpl implements DeviceApi {
     }
 
     private Device mapToDeviceWithChannels(final io.swagger.client.model.Device device) {
-        SortedSet<Channel> channels = channelApi.findChannels(device.getId());
+        final SortedSet<Channel> channels = device.getChannelsIds()
+                                                    .stream()
+                                                    .map(channelApi::findChannel)
+                                                    .collect(Collectors.toCollection(TreeSet::new));
         return new DeviceImpl(device, channels);
     }
 
