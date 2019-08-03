@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.api.internal;
 
+import lombok.Value;
 import pl.grzeslowski.jsupla.api.Color;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Math.ceil;
 import static java.lang.String.format;
 
 final class HsbTypeConverter {
@@ -13,16 +15,27 @@ final class HsbTypeConverter {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public String toCloudFormat(int red, int green, int blue) {
-        final String redHex = toHex(red);
-        final String greenHex = toHex(green);
-        final String blueHex = toHex(blue);
+    CloudFormat toCloudFormat(Color.Hsv hsv) {
+        final int colorBrightness = (int) ceil(hsv.getValue() * 100);
 
-        return format("%s%s%s%s", HEX_PREFIX, redHex, greenHex, blueHex);
+        Color.Rgb rgbWithoutBrightness = hsv.setValue(1).toRgb();
+
+        final String redHex = toHex(rgbWithoutBrightness.getRed());
+        final String greenHex = toHex(rgbWithoutBrightness.getGreen());
+        final String blueHex = toHex(rgbWithoutBrightness.getBlue());
+
+        String color = format("%s%s%s%s", HEX_PREFIX, redHex, greenHex, blueHex);
+        return new CloudFormat(color, colorBrightness);
     }
 
-    String toCloudFormat(Color.Rgb rgb) {
-        return toCloudFormat(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
+    CloudFormat toCloudFormat(Color.Rgb rgb) {
+        return toCloudFormat(rgb.toHsv());
+    }
+
+    @Value
+    class CloudFormat {
+        private final String color;
+        private final int colorBrightness;
     }
 
     private String toHex(int x) {
@@ -56,6 +69,4 @@ final class HsbTypeConverter {
                 hsbType.getSaturation(),
                 brightness / 100.0);
     }
-
-
 }

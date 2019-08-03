@@ -65,8 +65,17 @@ public class Color {
     @Getter
     public static class Hsv implements Serializable {
         private static final long serialVersionUID = 1L;
+        /**
+         * Hue [0, 359]
+         */
         private final double hue;
+        /**
+         * Saturation [0, 1]
+         */
         private final double saturation;
+        /**
+         * Value [0, 1]
+         */
         private final double value;
 
         // https://stackoverflow.com/a/6930407/1819402
@@ -106,6 +115,18 @@ public class Color {
             this.hue = checkBoundaries(hue, 359.0);
             this.saturation = checkBoundaries(saturation, 1.0);
             this.value = checkBoundaries(value, 1.0);
+        }
+
+        public Hsv setHue(final double hue) {
+            return new Hsv(hue, saturation, value);
+        }
+
+        public Hsv setSaturation(final double saturation) {
+            return new Hsv(hue, saturation, value);
+        }
+
+        public Hsv setValue(final double value) {
+            return new Hsv(hue, saturation, value);
         }
 
         public Rgb toRgb() {
