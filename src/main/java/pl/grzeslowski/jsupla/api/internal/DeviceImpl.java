@@ -16,6 +16,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.api.internal.Helper.parseChannels;
 import static pl.grzeslowski.jsupla.api.internal.Helper.parseZonedDateTime;
 
 @ToString
@@ -38,6 +39,10 @@ final class DeviceImpl implements Device {
     private final SortedSet<Schedule> schedules;
 
     DeviceImpl(io.swagger.client.model.Device device) {
+        this(device, parseChannels(device));
+    }
+
+    DeviceImpl(io.swagger.client.model.Device device, SortedSet<Channel> channels) {
         requireNonNull(device);
         this.id = device.getId();
         this.enabled = device.isEnabled();
@@ -52,18 +57,8 @@ final class DeviceImpl implements Device {
         this.connected = device.isConnected();
         this.location = parseLocation(device.getLocation());
         this.originalLocation = parseLocation(device.getOriginalLocation());
-        this.channels = parseChannels(device);
+        this.channels = channels;
         this.schedules = parseSchedules(device.getSchedules());
-    }
-
-    private TreeSet<Channel> parseChannels(final io.swagger.client.model.Device device) {
-        if (channels == null) {
-            return new TreeSet<>();
-        }
-        return device.getChannels()
-                                .stream()
-                                .map(Helper::parseChannel)
-                                .collect(Collectors.toCollection(TreeSet::new));
     }
 
     private SortedSet<Schedule> parseSchedules(final List<io.swagger.client.model.Schedule> schedules) {

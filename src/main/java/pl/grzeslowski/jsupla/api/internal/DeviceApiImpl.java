@@ -3,8 +3,8 @@ package pl.grzeslowski.jsupla.api.internal;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.IoDevicesApi;
-import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.DeviceApi;
+import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.device.Device;
 
 import java.util.List;
@@ -13,11 +13,12 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 final class DeviceApiImpl implements DeviceApi {
     private static final List<String> DEFAULT_INCLUDE = asList("channels", "connected");
     private final IoDevicesApi ioDevicesApi;
-    private final ChannelApi channelApi;
+    private final ChannelApiImpl channelApi;
 
     DeviceApiImpl(final ApiClient apiClient) {
         this.ioDevicesApi = new IoDevicesApi(apiClient);
@@ -36,13 +37,18 @@ final class DeviceApiImpl implements DeviceApi {
     @Override
     public SortedSet<Device> findDevices() {
         try {
-            return ioDevicesApi.getIoDevices(DEFAULT_INCLUDE)
+            return ioDevicesApi.getIoDevices(singletonList("connected"))
                            .stream()
-                           .map(this::mapToDevice)
+                           .map(this::mapToDeviceWithChannels)
                            .collect(Collectors.toCollection(TreeSet::new));
         } catch (ApiException e) {
             throw new pl.grzeslowski.jsupla.api.ApiException("/findDevices", e);
         }
+    }
+
+    private Device mapToDeviceWithChannels(final io.swagger.client.model.Device device) {
+        SortedSet<Channel> channels = channelApi.findChannels(device.getId());
+        return new DeviceImpl(device, channels);
     }
 
     private Device mapToDevice(io.swagger.client.model.Device device) {
