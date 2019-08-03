@@ -46,4 +46,7 @@ public class ApiException extends RuntimeException {
         return sb.toString();
     }
 
+    public String getPath() {
+        return path;
+    }
 }
