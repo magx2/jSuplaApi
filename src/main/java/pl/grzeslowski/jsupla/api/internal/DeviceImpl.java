@@ -2,8 +2,6 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.device.Device;
 import pl.grzeslowski.jsupla.api.location.Location;
@@ -17,9 +15,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.api.internal.ChannelDispatcher.INSTANCE;
+import static pl.grzeslowski.jsupla.api.internal.Helper.parseZonedDateTime;
 
 @ToString
 @EqualsAndHashCode
@@ -57,7 +54,7 @@ final class DeviceImpl implements Device {
         this.originalLocation = parseLocation(device.getOriginalLocation());
         this.channels = device.getChannels()
                                 .stream()
-                                .map(channel -> ChannelFunctionDispatcher.DISPATCHER.dispatch(channel, INSTANCE))
+                                .map(Helper::parseChannel)
                                 .collect(Collectors.toCollection(TreeSet::new));
         this.schedules = parseSchedules(device.getSchedules());
     }
@@ -84,11 +81,6 @@ final class DeviceImpl implements Device {
         } catch (UnknownHostException e) {
             return null;
         }
-    }
-
-    private ZonedDateTime parseZonedDateTime(OffsetDateTime offsetDateTime) {
-        String format = offsetDateTime.toZonedDateTime().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        return ZonedDateTime.parse(format, ISO_OFFSET_DATE_TIME);
     }
 
     @Override
