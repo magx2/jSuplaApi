@@ -15,7 +15,7 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onControllingTheGatewayLock(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return new ControllingChannelImpl(channel);
     }
 
     @Override
@@ -25,7 +25,7 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onControllingTheGarageDoor(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return new ControllingChannelImpl(channel);
     }
 
     @Override
