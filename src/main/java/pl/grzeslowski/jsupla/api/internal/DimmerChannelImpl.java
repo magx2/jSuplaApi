@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.DimmerChannel;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
+import pl.grzeslowski.jsupla.api.channel.state.Percentage;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -13,7 +14,7 @@ final class DimmerChannelImpl extends ChannelImpl implements DimmerChannel {
 
     DimmerChannelImpl(final Channel channel) {
         super(channel);
-        state = new PercentageState(channel.getState().getBrightness());
+        state = new BrightnessStateImpl(new Percentage(channel.getState().getBrightness()));
     }
 
     @Override

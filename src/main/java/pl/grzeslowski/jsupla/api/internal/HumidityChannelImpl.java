@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.HumidityChannel;
 import pl.grzeslowski.jsupla.api.channel.state.HumidityState;
+import pl.grzeslowski.jsupla.api.channel.state.Percentage;
 
 import java.math.BigDecimal;
 
@@ -22,7 +23,7 @@ final class HumidityChannelImpl extends ChannelImpl implements HumidityChannel {
     HumidityChannelImpl(final Channel channel) {
         super(channel);
         humidityAdjustment = channel.getParam3() != null ? channel.getParam3() : 0;
-        state = new PercentageState(findHumidity(channel));
+        state = new HumidityStateImpl(new Percentage(findHumidity(channel)));
     }
 
     private BigDecimal findHumidity(Channel channel) {
