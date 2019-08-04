@@ -38,9 +38,7 @@ final class HsbTypeConverter {
         private final int colorBrightness;
     }
 
-    private String toHex(int x) {
-        final double scale = x / 100.0;
-        final int value = (int) (scale * 255);
+    private String toHex(int value) {
         final boolean addZeroPrefix = value < 16;
         final String hex = Integer.toHexString(value).toUpperCase();
         return addZeroPrefix ? "0" + hex : hex;
