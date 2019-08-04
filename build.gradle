@@ -33,6 +33,7 @@ repositories {
 	jcenter()
 	maven { url "https://dl.bintray.com/big-boy/bigboy" }
 	jcenter()
+	mavenLocal()
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
