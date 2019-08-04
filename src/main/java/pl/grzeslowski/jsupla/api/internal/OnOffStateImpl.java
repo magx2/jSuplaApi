@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import io.swagger.client.model.Channel;
 import io.swagger.client.model.ChannelState;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
 
@@ -14,7 +15,8 @@ import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
 
 @ToString
 @EqualsAndHashCode
-class OnOffStateImpl implements OnOffState {
+@Getter
+final class OnOffStateImpl implements OnOffState {
     private final OnOff onOff;
 
     static OnOffState hi(Channel channel) {
@@ -52,7 +54,7 @@ class OnOffStateImpl implements OnOffState {
     }
 
     @Override
-    public OnOff getOnfOff() {
+    public OnOff getOnOffState() {
         return onOff;
     }
 }

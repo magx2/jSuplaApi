@@ -15,7 +15,8 @@ final class RgbLightningChannelImpl extends ChannelImpl implements RgbLightningC
     RgbLightningChannelImpl(final Channel channel) {
         super(channel);
         final Color.Hsv hsv = HsbTypeConverter.INSTANCE.toHsv(
-                channel.getState().getColor(), 100
+                channel.getState().getColor(),
+                channel.getState().getColorBrightness()
         );
         state = new ColorStateImpl(hsv);
     }

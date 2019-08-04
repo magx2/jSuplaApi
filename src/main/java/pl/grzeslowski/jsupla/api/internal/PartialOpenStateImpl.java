@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.model.Channel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.state.PartialOpenState;
 
@@ -13,22 +14,18 @@ import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
 
 @ToString
 @EqualsAndHashCode
+@Getter
 final class PartialOpenStateImpl implements PartialOpenState {
     private final OnOff onOffState;
     private final OnOff partialState;
 
     PartialOpenStateImpl(final Channel channel) {
-        onOffState = OnOffStateImpl.hi(channel).getOnfOff();
+        onOffState = OnOffStateImpl.hi(channel).getOnOffState();
         if (channel.getParam3() == null) {
             partialState = null;
         } else {
             partialState = channel.getState().isPartialHi() ? ON : OFF;
         }
-    }
-
-    @Override
-    public OnOff getOnfOff() {
-        return onOffState;
     }
 
     @Override

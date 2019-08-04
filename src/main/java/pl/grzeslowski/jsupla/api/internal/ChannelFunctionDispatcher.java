@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.model.Channel;
+import io.swagger.client.model.ChannelFunctionEnumNames;
 
 final class ChannelFunctionDispatcher {
     static final ChannelFunctionDispatcher DISPATCHER = new ChannelFunctionDispatcher();
@@ -14,7 +15,12 @@ final class ChannelFunctionDispatcher {
 
     @SuppressWarnings("SameParameterValue")
     <T> T dispatch(final Channel channel, FunctionSwitch<T> functionSwitch) {
-        switch (channel.getFunction().getName()) {
+        ChannelFunctionEnumNames name = channel.getFunction().getName();
+        // this happens when swagger could not map name from json
+        if (name == null) {
+            return functionSwitch.onDefault(channel);
+        }
+        switch (name) {
             case NONE:
                 return functionSwitch.onNone(channel);
             case CONTROLLINGTHEGATEWAYLOCK:

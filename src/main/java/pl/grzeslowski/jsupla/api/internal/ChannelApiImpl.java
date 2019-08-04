@@ -77,7 +77,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
     @Override
     public SortedSet<Channel> findChannels(final Device device) {
         try {
-            return ioDevicesApi.getIoDeviceChannels(device.getId(), DEFAULT_INCLUDE)
+            return ioDevicesApi.getIoDeviceChannels(device.getId(), singletonList("location"))
                            .stream()
                            .map(this::mapToChannel)
                            .collect(Collectors.toCollection(TreeSet::new));
@@ -121,13 +121,17 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
             return new ChannelExecuteActionRequest().action(SET_RGBW_PARAMETERS).brightness(brightnessAction.getBrightness());
         } else if (action instanceof SetBrightnessAndColor) {
             final SetBrightnessAndColor brightnessAndColor = (SetBrightnessAndColor) action;
+            HsbTypeConverter.CloudFormat cloudFormat = HsbTypeConverter.INSTANCE.toCloudFormat(brightnessAndColor.getRgb());
             return new ChannelExecuteActionRequest().action(SET_RGBW_PARAMETERS)
-                           .color(HsbTypeConverter.INSTANCE.toCloudFormat(brightnessAndColor.getRgb()))
+                           .color(cloudFormat.getColor())
+                           .colorBrightness(cloudFormat.getColorBrightness())
                            .brightness(brightnessAndColor.getBrightness());
         } else if (action instanceof SetColorAction) {
             final SetColorAction colorAction = (SetColorAction) action;
+            HsbTypeConverter.CloudFormat cloudFormat = HsbTypeConverter.INSTANCE.toCloudFormat(colorAction.getRgb());
             return new ChannelExecuteActionRequest().action(SET_RGBW_PARAMETERS)
-                           .color(HsbTypeConverter.INSTANCE.toCloudFormat(colorAction.getRgb()));
+                           .color(cloudFormat.getColor())
+                           .colorBrightness(cloudFormat.getColorBrightness());
         } else if (action instanceof ShutRevealAction) {
             final ShutRevealAction shutRevealAction = (ShutRevealAction) action;
             return new ChannelExecuteActionRequest().action(SHUT).percentage(shutRevealAction.getShut());
