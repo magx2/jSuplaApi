@@ -6,11 +6,8 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
-import static java.lang.Math.floor;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 public class Color {
+    private static final double MAX_HUE = 360.0;
 
     @EqualsAndHashCode
     @ToString
@@ -21,32 +18,13 @@ public class Color {
         private final int green;
         private final int blue;
 
+        @SuppressWarnings("WeakerAccess")
         public static Rgb fromHsv(Hsv hsv) {
-            if (hsv.value == 0.0) {
-                return new Rgb(0, 0, 0);
-            } else {
-                final int i = (int) floor(hsv.hue / 60.0);
-                final double f = hsv.hue - i;
-                final double p = hsv.value * (1.0 - hsv.saturation);
-                final double q = hsv.value * (1.0 - (hsv.saturation * f));
-                final double t = hsv.value * (1.0 - (hsv.saturation * (1.0 - f)));
-                switch (i) {
-                    case 0:
-                        return new Rgb((int) hsv.value, (int) t, (int) p);
-                    case 1:
-                        return new Rgb((int) q, (int) hsv.value, (int) p);
-                    case 2:
-                        return new Rgb((int) p, (int) hsv.value, (int) t);
-                    case 3:
-                        return new Rgb((int) p, (int) q, (int) hsv.value);
-                    case 4:
-                        return new Rgb((int) t, (int) p, (int) hsv.value);
-                    case 5:
-                        return new Rgb((int) hsv.value, (int) p, (int) q);
-                    default:
-                        throw new RuntimeException("Cannot find RGB for HSV `" + hsv + "`!");
-                }
-            }
+            int rgb = java.awt.Color.HSBtoRGB((float) (hsv.hue / MAX_HUE), (float) hsv.saturation, (float) hsv.value);
+            int red = (rgb >> 16) & 0xFF;
+            int green = (rgb >> 8) & 0xFF;
+            int blue = rgb & 0xFF;
+            return new Rgb(red, green, blue);
         }
 
         public Rgb(final int red, final int green, final int blue) {
@@ -78,41 +56,13 @@ public class Color {
          */
         private final double value;
 
-        // https://stackoverflow.com/a/6930407/1819402
         public static Hsv fromRgb(Rgb rgb) {
-            final double red = rgb.red / 255.0;
-            final double green = rgb.green / 255.0;
-            final double blue = rgb.blue / 255.0;
-
-            final double colorMax = max(red, max(green, blue));
-            final double colorMin = min(red, min(green, blue));
-            final double delta = colorMax - colorMin;
-
-            final double hue;
-            final double saturation;
-            if (delta == 0.0) {
-                hue = 0;
-                saturation = 0;
-            } else if (colorMax > 0.0) {
-                saturation = delta / colorMax;
-                if (red >= colorMax) {
-                    hue = (green - blue) / delta * 60;
-                } else if (green >= colorMax) {
-                    hue = 2.0 + (blue - red) / delta * 60;
-                } else if (blue >= colorMax) {
-                    hue = 4.0 + (red - green) / delta * 60;
-                } else {
-                    throw new RuntimeException("Cannot find HSV hue for RGB `" + rgb + "`!");
-                }
-            } else {
-                throw new RuntimeException("Cannot find HSV for RGB `" + rgb + "`!");
-            }
-
-            return new Hsv(hue, saturation, colorMax);
+            float[] hsv = java.awt.Color.RGBtoHSB(rgb.red, rgb.green, rgb.blue, null);
+            return new Hsv(hsv[0] * MAX_HUE, hsv[1], hsv[2]);
         }
 
         public Hsv(final double hue, final double saturation, final double value) {
-            this.hue = checkBoundaries(hue, 0.0, 359.0);
+            this.hue = checkBoundaries(hue, 0.0, MAX_HUE);
             this.saturation = checkBoundaries(saturation, 0.0, 1.0);
             this.value = checkBoundaries(value, 0.0, 1.0);
         }
@@ -132,7 +82,6 @@ public class Color {
         public Rgb toRgb() {
             return Rgb.fromHsv(this);
         }
-
     }
 
     @SuppressWarnings("SameParameterValue")
