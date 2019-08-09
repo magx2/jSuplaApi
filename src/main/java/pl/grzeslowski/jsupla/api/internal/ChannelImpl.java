@@ -12,18 +12,21 @@ abstract class ChannelImpl implements Channel {
     private final String caption;
     private final boolean hidden;
     private final boolean connected;
+    private final boolean output;
 
     protected ChannelImpl(
             final int id,
             final int channelNumber,
             final String caption,
             final boolean hidden,
-            final boolean connected) {
+            final boolean connected,
+            final Boolean output) {
         this.id = id;
         this.channelNumber = channelNumber;
         this.caption = caption;
         this.hidden = hidden;
         this.connected = connected;
+        this.output = output != null && output;
     }
 
     public ChannelImpl(io.swagger.client.model.Channel channel) {
@@ -32,7 +35,8 @@ abstract class ChannelImpl implements Channel {
                 channel.getChannelNumber(),
                 channel.getCaption(),
                 channel.isHidden(),
-                channel.isConnected());
+                channel.isConnected(),
+                channel.getType().isOutput());
     }
 
     @Override
@@ -63,5 +67,15 @@ abstract class ChannelImpl implements Channel {
     @Override
     public boolean isConnected() {
         return connected;
+    }
+
+    @Override
+    public boolean isOutput() {
+        return output;
+    }
+
+    @Override
+    public boolean isInput() {
+        return !isOutput();
     }
 }
