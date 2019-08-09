@@ -41,6 +41,10 @@ abstract class ChannelImpl implements Channel {
 
     @Override
     public final int compareTo(final Channel o) {
+        final int compareChannelNumber = Integer.compare(channelNumber, o.getChannelNumber());
+        if (compareChannelNumber != 0) {
+            return compareChannelNumber;
+        }
         return Integer.compare(getId(), o.getId());
     }
 
