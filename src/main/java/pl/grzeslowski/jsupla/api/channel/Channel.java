@@ -11,4 +11,18 @@ public interface Channel extends Comparable<Channel>, WithId, WithCaption, WithH
     boolean isConnected();
 
     State getState();
+
+    /**
+     * Whether the channel is output type (i.e. can take action).
+     *
+     * @return if channel is output
+     */
+    boolean isOutput();
+
+    /**
+     * Whether the channel is input (i.e. provide data).
+     *
+     * @return if channel is input
+     */
+    boolean isInput();
 }

@@ -9,6 +9,7 @@ import io.swagger.client.model.ChannelExecuteActionRequest;
 import io.swagger.client.model.ChannelFunctionActionEnum;
 import pl.grzeslowski.jsupla.api.ChannelApi;
 import pl.grzeslowski.jsupla.api.ChannelGroupApi;
+import pl.grzeslowski.jsupla.api.OutputChannelUpdateException;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.channel.action.Action;
 import pl.grzeslowski.jsupla.api.channel.action.OpenCloseAction;
@@ -92,6 +93,9 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
 
     @Override
     public Supplier<Channel> updateState(final Channel channel, final Action action) {
+        if (channel.isInput()) {
+            throw new OutputChannelUpdateException(channel, action);
+        }
         final ChannelExecuteActionRequest body = buildChannelExecuteActionRequest(action);
         try {
             channelsApi.executeAction(body, channel.getId());
