@@ -33,6 +33,13 @@ public class Color {
             this.blue = checkBoundaries(blue, 0, 255);
         }
 
+        public Rgb(final double red, final double green, final double blue) {
+            this(
+                    (int) (checkBoundaries(red, 0.0, 1.0) * 255.0),
+                    (int) (checkBoundaries(green, 0.0, 1.0) * 255.0),
+                    (int) (checkBoundaries(blue, 0.0, 1.0) * 255.0));
+        }
+
         public Hsv toHsv() {
             return Hsv.fromRgb(this);
         }
