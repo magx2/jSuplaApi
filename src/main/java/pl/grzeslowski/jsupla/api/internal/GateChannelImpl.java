@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.GateChannel;
-import pl.grzeslowski.jsupla.api.channel.state.PartialOpenState;
+import pl.grzeslowski.jsupla.api.channel.state.GateState;
 
 import java.util.Optional;
 
@@ -15,14 +15,14 @@ import static java.util.Optional.ofNullable;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 final class GateChannelImpl extends ChannelImpl implements GateChannel {
-    private final PartialOpenState state;
+    private final GateState state;
     private int openingTimeInMs;
     private int idOfOpeningSensor;
     private Integer idOfSecondaryOpeningSensor;
 
     GateChannelImpl(final Channel channel) {
         super(channel);
-        state = new PartialOpenStateImpl(channel);
+        state = new GateStateImpl(channel);
         openingTimeInMs = channel.getParam1();
         idOfOpeningSensor = channel.getParam2();
         idOfSecondaryOpeningSensor = channel.getParam3();

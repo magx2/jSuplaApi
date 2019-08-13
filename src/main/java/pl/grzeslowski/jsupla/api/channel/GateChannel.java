@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.api.channel;
 
-import pl.grzeslowski.jsupla.api.channel.state.PartialOpenState;
+import pl.grzeslowski.jsupla.api.channel.state.GateState;
 
 import java.util.Optional;
 
 public interface GateChannel extends Channel, OpeningChannel {
     @Override
-    PartialOpenState getState();
+    GateState getState();
 
     Optional<Integer> getIdOfSecondaryOpeningSensor();
 }
