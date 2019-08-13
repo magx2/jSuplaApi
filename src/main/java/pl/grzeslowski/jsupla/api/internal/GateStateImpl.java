@@ -7,10 +7,6 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.state.GateState;
 import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
 
-import java.util.Optional;
-
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 import static pl.grzeslowski.jsupla.api.channel.state.GateState.Position.CLOSED;
 import static pl.grzeslowski.jsupla.api.channel.state.GateState.Position.OPENED;
 import static pl.grzeslowski.jsupla.api.channel.state.GateState.Position.PARTIALLY_OPENED;
@@ -24,18 +20,17 @@ final class GateStateImpl implements GateState {
     private final Position position;
 
     GateStateImpl(final Channel channel) {
-        final OnOffState.OnOff onOffState = OnOffStateImpl.hi(channel).getOnOffState();
-        Optional<OnOffState.OnOff> partialState;
+        final OnOffState.OnOff onOffState = channel.getState().isHi() ? ON : OFF;
+        OnOffState.OnOff partialState;
         if (channel.getParam3() == null) {
-            partialState = empty();
+            partialState = OFF;
         } else {
-            partialState = of(channel.getState().isPartialHi() ? ON : OFF);
+            partialState = channel.getState().isPartialHi() ? ON : OFF;
         }
         if (onOffState == ON) {
             position = CLOSED;
         } else {
-            position = partialState.map(onOff -> onOff == ON ? PARTIALLY_OPENED : CLOSED)
-                               .orElse(OPENED);
+            position = partialState == OFF ? OPENED : PARTIALLY_OPENED;
         }
     }
 }
