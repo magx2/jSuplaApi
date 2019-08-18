@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.model.Channel;
+import io.swagger.client.model.ChannelState;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -20,12 +21,14 @@ final class GateStateImpl implements GateState {
     private final Position position;
 
     GateStateImpl(final Channel channel) {
-        final OnOffState.OnOff onOffState = channel.getState().isHi() ? ON : OFF;
+        final ChannelState state = channel.getState();
+        final OnOffState.OnOff onOffState = state.isHi() ? ON : OFF;
         OnOffState.OnOff partialState;
         if (channel.getParam3() == null) {
             partialState = OFF;
         } else {
-            partialState = channel.getState().isPartialHi() ? ON : OFF;
+            final Boolean partialHi = state.isPartialHi();
+            partialState = partialHi != null && partialHi ? ON : OFF;
         }
         if (onOffState == ON) {
             position = CLOSED;
