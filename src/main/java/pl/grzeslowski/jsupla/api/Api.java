@@ -7,6 +7,10 @@ public interface Api {
         return new ApiImpl(token);
     }
 
+    static Api getInstance(String token, String url) {
+        return new ApiImpl(token, url);
+    }
+
     DeviceApi getDeviceApi();
 
     ChannelApi getChannelApi();

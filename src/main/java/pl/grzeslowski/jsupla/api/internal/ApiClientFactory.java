@@ -13,16 +13,28 @@ final class ApiClientFactory {
     }
 
     /**
+     * Creates new {@link ApiClient} with given OAuth token and server URL.
+     *
+     * @param oAuthToken to authorize
+     * @param url server base URL
+     * @return new {@link ApiClient} with configured authorization and base path
+     */
+    public ApiClient newApiClient(String oAuthToken, String url) {
+        ApiClient client = new ApiClient();
+        client.setUserAgent("magx2/jSuplaApi");
+        OAuth password = (OAuth) client.getAuthentication("BearerAuth");
+        password.setAccessToken(oAuthToken);
+        client.setBasePath(url + "/api/v" + API_VERSION);
+        return client;
+    }
+
+    /**
      * Creates new {@link ApiClient} with given OAuth token.
      *
      * @param oAuthToken to authorize
      * @return new {@link ApiClient} with configured authorization and base path
      */
     public ApiClient newApiClient(String oAuthToken) {
-        ApiClient client = new ApiClient();
-        client.setUserAgent("magx2/jSuplaApi");
-        OAuth password = (OAuth) client.getAuthentication("BearerAuth");
-        password.setAccessToken(oAuthToken);
         String[] split = oAuthToken.split("\\.");
         if (split.length < 2) {
             throw new IllegalArgumentException("OAuth token does not contain '.' (dot)!");
@@ -31,7 +43,6 @@ final class ApiClientFactory {
         }
         String urlBase64 = split[1];
         String url = new String(Base64.getDecoder().decode(urlBase64));
-        client.setBasePath(url + "/api/v" + API_VERSION);
-        return client;
+        return newApiClient(oAuthToken, url);
     }
 }
