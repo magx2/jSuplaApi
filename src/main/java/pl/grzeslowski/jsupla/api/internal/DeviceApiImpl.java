@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.IoDevicesApi;
+import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 import pl.grzeslowski.jsupla.api.device.Device;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 
+@Slf4j
 final class DeviceApiImpl implements DeviceApi {
     private static final List<String> DEFAULT_INCLUDE = singletonList("connected");
     private final IoDevicesApi ioDevicesApi;
@@ -46,6 +48,7 @@ final class DeviceApiImpl implements DeviceApi {
     }
 
     private Device mapToDeviceWithChannels(final io.swagger.client.model.Device device) {
+        log.trace("Got device {}", device);
         final SortedSet<Channel> channels = device.getChannelsIds()
                                                     .stream()
                                                     .map(channelApi::findChannel)
