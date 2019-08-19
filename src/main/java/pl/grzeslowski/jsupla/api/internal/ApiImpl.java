@@ -13,6 +13,10 @@ import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
 public final class ApiImpl implements Api {
     private final ApiClient apiClient;
 
+    public ApiImpl(String token, String url) {
+        this.apiClient = INSTANCE.newApiClient(token, url);
+    }
+
     public ApiImpl(String token) {
         this.apiClient = INSTANCE.newApiClient(token);
     }
