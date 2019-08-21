@@ -17,9 +17,17 @@ final class RollerShutterStateImpl implements RollerShutterState {
     private final Percentage shut;
 
     RollerShutterStateImpl(Channel channel) {
-        onOffState = OnOffStateImpl.hi(channel);
         calibrating = channel.getState().isIsCalibrating();
         shut = new Percentage(channel.getState().getShut());
+        onOffState = buildOnOff(shut, channel);
+    }
+
+    private static OnOffState buildOnOff(Percentage shut, Channel channel) {
+        if (channel.getParam2() != null && channel.getParam2() > 0) {
+            return new OnOffStateImpl(channel.getState().isHi());
+        } else {
+            return new OnOffStateImpl(shut.compareTo(Percentage.MAX) != 0);
+        }
     }
 
     @Override

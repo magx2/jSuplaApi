@@ -32,7 +32,7 @@ final class OnOffStateImpl implements OnOffState {
         this.onOff = requireNonNull(onOff);
     }
 
-    private OnOffStateImpl(final boolean booleanState) {
+    OnOffStateImpl(final boolean booleanState) {
         this(booleanState ? ON : OFF);
     }
 
