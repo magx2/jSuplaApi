@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.Channel;
 
+import java.util.function.Supplier;
+
 @ToString
 @EqualsAndHashCode
 abstract class ChannelImpl implements Channel {
@@ -13,6 +15,14 @@ abstract class ChannelImpl implements Channel {
     private final boolean hidden;
     private final boolean connected;
     private final boolean output;
+
+    protected static <StateT> StateT findState(io.swagger.client.model.Channel channel, Supplier<StateT> mapper) {
+        if (channel.isConnected()) {
+            return mapper.get();
+        } else {
+            return null;
+        }
+    }
 
     protected ChannelImpl(
             final int id,

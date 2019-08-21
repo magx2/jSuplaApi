@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
 
 import java.util.function.Function;
 
+import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.OFF;
 import static pl.grzeslowski.jsupla.api.channel.state.OnOffState.OnOff.ON;
@@ -31,7 +32,7 @@ final class OnOffStateImpl implements OnOffState {
         this.onOff = requireNonNull(onOff);
     }
 
-    private OnOffStateImpl(final boolean booleanState) {
+    OnOffStateImpl(final boolean booleanState) {
         this(booleanState ? ON : OFF);
     }
 
@@ -42,6 +43,7 @@ final class OnOffStateImpl implements OnOffState {
     private static boolean finBooleanState(final Channel channel, final Function<ChannelState, Boolean> toBooleanState) {
         final Integer inverted = channel.getParam3();
         final Boolean booleanState = toBooleanState.apply(channel.getState());
+        requireNonNull(booleanState, format("toBooleanState returned null for state %s and channel %s", channel.getState(), channel));
         if (inverted != null) {
             if (inverted > 0) {
                 return !booleanState;

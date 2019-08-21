@@ -7,6 +7,8 @@ import pl.grzeslowski.jsupla.api.Color;
 import pl.grzeslowski.jsupla.api.channel.RgbLightningChannel;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class RgbLightningChannelImpl extends ChannelImpl implements RgbLightningChannel {
@@ -14,15 +16,17 @@ final class RgbLightningChannelImpl extends ChannelImpl implements RgbLightningC
 
     RgbLightningChannelImpl(final Channel channel) {
         super(channel);
-        final Color.Hsv hsv = HsbTypeConverter.INSTANCE.toHsv(
-                channel.getState().getColor(),
-                channel.getState().getColorBrightness()
-        );
-        state = new ColorStateImpl(hsv);
+        state = findState(channel, () -> {
+            final Color.Hsv hsv = HsbTypeConverter.INSTANCE.toHsv(
+                    channel.getState().getColor(),
+                    channel.getState().getColorBrightness()
+            );
+            return new ColorStateImpl(hsv);
+        });
     }
 
     @Override
-    public ColorState getState() {
-        return state;
+    public Optional<ColorState> findState() {
+        return Optional.ofNullable(state);
     }
 }

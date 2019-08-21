@@ -6,6 +6,8 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.TemperatureAndHumidityChannel;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureAndHumidityState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class TemperatureAndHumidityChannelImpl extends ChannelImpl implements TemperatureAndHumidityChannel {
@@ -17,15 +19,15 @@ final class TemperatureAndHumidityChannelImpl extends ChannelImpl implements Tem
         super(channel);
         thermometerChannel = new ThermometerChannelImpl(channel);
         humidityChannel = new HumidityChannelImpl(channel);
-        state = new TemperatureAndHumidityStateImpl(
-                humidityChannel.getState().getHumidityState(),
-                thermometerChannel.getState().getTemperatureState()
-        );
+        state = findState(channel, () -> new TemperatureAndHumidityStateImpl(
+                humidityChannel.findState().orElseThrow(() -> new IllegalStateException("Channel should have humidity")).getHumidityState(),
+                thermometerChannel.findState().orElseThrow(() -> new IllegalStateException("Channel should have temperature")).getTemperatureState()
+        ));
     }
 
     @Override
-    public TemperatureAndHumidityState getState() {
-        return state;
+    public Optional<TemperatureAndHumidityState> findState() {
+        return Optional.ofNullable(state);
     }
 
     @Override

@@ -8,6 +8,8 @@ import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorAndBrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.ColorState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class DimmerAndRgbLightningChannelImpl extends ChannelImpl implements DimmerAndRgbLightningChannel {
@@ -15,13 +17,15 @@ final class DimmerAndRgbLightningChannelImpl extends ChannelImpl implements Dimm
 
     DimmerAndRgbLightningChannelImpl(final Channel channel) {
         super(channel);
-        final BrightnessState brightnessState = new DimmerChannelImpl(channel).getState();
-        final ColorState colorState = new RgbLightningChannelImpl(channel).getState();
-        this.state = new ColorAndBrightnessStateImpl(brightnessState, colorState);
+        this.state = findState(channel, () -> {
+            final BrightnessState brightnessState = new DimmerChannelImpl(channel).findState().get();
+            final ColorState colorState = new RgbLightningChannelImpl(channel).findState().get();
+            return new ColorAndBrightnessStateImpl(brightnessState, colorState);
+        });
     }
 
     @Override
-    public ColorAndBrightnessState getState() {
-        return state;
+    public Optional<ColorAndBrightnessState> findState() {
+        return Optional.ofNullable(state);
     }
 }

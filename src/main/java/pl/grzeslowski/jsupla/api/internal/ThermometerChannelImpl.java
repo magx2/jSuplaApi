@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.api.channel.TemperatureChannel;
 import pl.grzeslowski.jsupla.api.channel.state.TemperatureState;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static java.math.RoundingMode.CEILING;
 
@@ -22,7 +23,7 @@ final class ThermometerChannelImpl extends ChannelImpl implements TemperatureCha
     ThermometerChannelImpl(final Channel channel) {
         super(channel);
         temperatureAdjustment = channel.getParam2() != null ? channel.getParam2() : 0;
-        this.state = new TemperatureStateImpl(findTemperature(channel));
+        this.state = findState(channel, () -> new TemperatureStateImpl(findTemperature(channel)));
     }
 
     private BigDecimal findTemperature(Channel channel) {
@@ -31,5 +32,10 @@ final class ThermometerChannelImpl extends ChannelImpl implements TemperatureCha
         return new BigDecimal(temperatureAdjustment)
                        .divide(new BigDecimal(100.0), CEILING)
                        .add(temperature);
+    }
+
+    @Override
+    public Optional<? extends TemperatureState> findState() {
+        return Optional.ofNullable(state);
     }
 }

@@ -2,9 +2,11 @@ package pl.grzeslowski.jsupla.api.channel;
 
 import pl.grzeslowski.jsupla.api.channel.state.HumidityState;
 
+import java.util.Optional;
+
 public interface HumidityChannel extends Channel {
     @Override
-    HumidityState getState();
+    Optional<? extends HumidityState> findState();
 
     /**
      * Humidity adjustment in 0.01%, [-1000, 1000]
