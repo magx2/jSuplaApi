@@ -6,6 +6,10 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.NoneChannel;
 import pl.grzeslowski.jsupla.api.channel.state.State;
 
+import java.util.Optional;
+
+import static java.util.Optional.of;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class NoneChannelImpl extends ChannelImpl implements NoneChannel {
@@ -17,7 +21,7 @@ final class NoneChannelImpl extends ChannelImpl implements NoneChannel {
     }
 
     @Override
-    public State getState() {
-        return STATE;
+    public Optional<State> findState() {
+        return of(STATE);
     }
 }

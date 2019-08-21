@@ -7,6 +7,8 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.RollerShutterChannel;
 import pl.grzeslowski.jsupla.api.channel.state.RollerShutterState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Getter
@@ -17,13 +19,13 @@ final class RollerShutterChannelImpl extends ChannelImpl implements RollerShutte
 
     RollerShutterChannelImpl(final Channel channel) {
         super(channel);
-        state = new RollerShutterStateImpl(channel);
+        state = findState(channel, () -> new RollerShutterStateImpl(channel));
         openingTimeInMs = channel.getParam1();
         idOfOpeningSensor = channel.getParam2();
     }
 
     @Override
-    public RollerShutterState getState() {
-        return state;
+    public Optional<RollerShutterState> findState() {
+        return Optional.ofNullable(state);
     }
 }

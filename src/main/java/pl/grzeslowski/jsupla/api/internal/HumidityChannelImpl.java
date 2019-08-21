@@ -10,6 +10,7 @@ import pl.grzeslowski.jsupla.api.channel.state.HumidityState;
 import pl.grzeslowski.jsupla.api.channel.state.Percentage;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static java.math.RoundingMode.CEILING;
 
@@ -23,7 +24,7 @@ final class HumidityChannelImpl extends ChannelImpl implements HumidityChannel {
     HumidityChannelImpl(final Channel channel) {
         super(channel);
         humidityAdjustment = channel.getParam3() != null ? channel.getParam3() : 0;
-        state = new HumidityStateImpl(new Percentage(findHumidity(channel)));
+        state = findState(channel, () -> new HumidityStateImpl(new Percentage(findHumidity(channel))));
     }
 
     private BigDecimal findHumidity(Channel channel) {
@@ -32,5 +33,10 @@ final class HumidityChannelImpl extends ChannelImpl implements HumidityChannel {
         return new BigDecimal(humidityAdjustment)
                        .divide(new BigDecimal(100.0), CEILING)
                        .add(humidity);
+    }
+
+    @Override
+    public Optional<HumidityState> findState() {
+        return Optional.ofNullable(state);
     }
 }

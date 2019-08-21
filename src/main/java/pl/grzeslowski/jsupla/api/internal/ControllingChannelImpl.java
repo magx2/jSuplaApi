@@ -7,6 +7,8 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.ControllingChannel;
 import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
 
+import java.util.Optional;
+
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Getter
@@ -17,8 +19,13 @@ final class ControllingChannelImpl extends ChannelImpl implements ControllingCha
 
     ControllingChannelImpl(final Channel channel) {
         super(channel);
-        state = OnOffStateImpl.hi(channel);
+        state = findState(channel, () -> OnOffStateImpl.hi(channel));
         openingTimeInMs = channel.getParam1();
         idOfOpeningSensor = channel.getParam2();
+    }
+
+    @Override
+    public Optional<OnOffState> findState() {
+        return Optional.ofNullable(state);
     }
 }

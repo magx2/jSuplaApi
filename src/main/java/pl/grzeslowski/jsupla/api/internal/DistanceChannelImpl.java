@@ -6,6 +6,8 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.DistanceChannel;
 import pl.grzeslowski.jsupla.api.channel.state.DistanceState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class DistanceChannelImpl extends ChannelImpl implements DistanceChannel {
@@ -13,11 +15,11 @@ final class DistanceChannelImpl extends ChannelImpl implements DistanceChannel {
 
     DistanceChannelImpl(final Channel channel) {
         super(channel);
-        state = new DistanceStateImpl(channel.getState().getDistance());
+        state = findState(channel, () -> new DistanceStateImpl(channel.getState().getDistance()));
     }
 
     @Override
-    public DistanceState getState() {
-        return state;
+    public Optional<DistanceState> findState() {
+        return Optional.ofNullable(state);
     }
 }

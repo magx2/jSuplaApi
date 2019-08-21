@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface GateChannel extends Channel, OpeningChannel {
     @Override
-    GateState getState();
+    Optional<GateState> findState();
 
     Optional<Integer> getIdOfSecondaryOpeningSensor();
 }

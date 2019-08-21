@@ -7,6 +7,8 @@ import pl.grzeslowski.jsupla.api.channel.DimmerChannel;
 import pl.grzeslowski.jsupla.api.channel.state.BrightnessState;
 import pl.grzeslowski.jsupla.api.channel.state.Percentage;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class DimmerChannelImpl extends ChannelImpl implements DimmerChannel {
@@ -14,11 +16,11 @@ final class DimmerChannelImpl extends ChannelImpl implements DimmerChannel {
 
     DimmerChannelImpl(final Channel channel) {
         super(channel);
-        state = new BrightnessStateImpl(new Percentage(channel.getState().getBrightness()));
+        state = findState(channel, () -> new BrightnessStateImpl(new Percentage(channel.getState().getBrightness())));
     }
 
     @Override
-    public BrightnessState getState() {
-        return state;
+    public Optional<BrightnessState> findState() {
+        return Optional.ofNullable(state);
     }
 }

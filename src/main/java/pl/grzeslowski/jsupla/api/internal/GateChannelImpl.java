@@ -22,14 +22,20 @@ final class GateChannelImpl extends ChannelImpl implements GateChannel {
 
     GateChannelImpl(final Channel channel) {
         super(channel);
-        state = new GateStateImpl(channel);
+        state = findState(channel, () -> new GateStateImpl(channel));
         openingTimeInMs = channel.getParam1();
         idOfOpeningSensor = channel.getParam2();
         idOfSecondaryOpeningSensor = channel.getParam3();
     }
 
     @Override
+    public Optional<GateState> findState() {
+        return Optional.ofNullable(state);
+    }
+
+    @Override
     public Optional<Integer> getIdOfSecondaryOpeningSensor() {
         return ofNullable(idOfSecondaryOpeningSensor);
     }
+
 }

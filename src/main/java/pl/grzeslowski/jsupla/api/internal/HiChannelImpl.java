@@ -6,6 +6,8 @@ import lombok.ToString;
 import pl.grzeslowski.jsupla.api.channel.OnOffChannel;
 import pl.grzeslowski.jsupla.api.channel.state.OnOffState;
 
+import java.util.Optional;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 final class HiChannelImpl extends ChannelImpl implements OnOffChannel {
@@ -13,11 +15,11 @@ final class HiChannelImpl extends ChannelImpl implements OnOffChannel {
 
     HiChannelImpl(final Channel channel) {
         super(channel);
-        state = OnOffStateImpl.hi(channel);
+        state = findState(channel, () -> OnOffStateImpl.hi(channel));
     }
 
     @Override
-    public OnOffState getState() {
-        return state;
+    public Optional<OnOffState> findState() {
+        return Optional.ofNullable(state);
     }
 }
