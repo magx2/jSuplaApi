@@ -45,32 +45,32 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onOpeningSensorGateway(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onOpeningSensorGate(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onOpeningSensorGarageDoor(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onNoLiquidSensor(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onControllingTheDoorLock(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onOpeningSensorDoor(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
@@ -80,7 +80,7 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onOpeningSensorRollerShutter(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
@@ -120,12 +120,12 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
 
     @Override
     public Channel onOpeningSensorWindow(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
     public Channel onMailSensor(final io.swagger.client.model.Channel channel) {
-        return new HiChannelImpl(channel);
+        return HiChannelImpl.createWithoutParam2(channel);
     }
 
     @Override
