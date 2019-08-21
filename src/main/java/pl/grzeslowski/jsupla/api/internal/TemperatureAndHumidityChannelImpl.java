@@ -19,10 +19,10 @@ final class TemperatureAndHumidityChannelImpl extends ChannelImpl implements Tem
         super(channel);
         thermometerChannel = new ThermometerChannelImpl(channel);
         humidityChannel = new HumidityChannelImpl(channel);
-        state = new TemperatureAndHumidityStateImpl(
+        state = findState(channel, () -> new TemperatureAndHumidityStateImpl(
                 humidityChannel.findState().orElseThrow(() -> new IllegalStateException("Channel should have humidity")).getHumidityState(),
                 thermometerChannel.findState().orElseThrow(() -> new IllegalStateException("Channel should have temperature")).getTemperatureState()
-        );
+        ));
     }
 
     @Override
