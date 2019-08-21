@@ -41,6 +41,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.api.internal.ChannelDispatcher.INSTANCE;
+import static pl.grzeslowski.jsupla.api.internal.ToStringHelper.niceToString;
 
 @Slf4j
 final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
@@ -90,7 +91,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
     }
 
     private Channel mapToChannel(io.swagger.client.model.Channel channel) {
-        log.trace("Got channel {}", channel);
+        log.trace("Got channel {}", niceToString(channel));
         return ChannelFunctionDispatcher.DISPATCHER.dispatch(channel, INSTANCE);
     }
 
@@ -100,7 +101,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
             throw new OutputChannelUpdateException(channel, action);
         }
         final ChannelExecuteActionRequest body = buildChannelExecuteActionRequest(action);
-        log.trace("updateState with action {}, body {} for channel {}", action, body, channel);
+        log.trace("updateState with action {}, body {} for channel {}", action, niceToString(body), niceToString(channel));
         try {
             channelsApi.executeAction(body, channel.getId());
         } catch (ApiException e) {
@@ -112,7 +113,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
     @Override
     public void updateState(final ChannelGroup channelGroup, final Action action) {
         final ChannelExecuteActionRequest body = buildChannelExecuteActionRequest(action);
-        log.trace("updateState with action {}, body {} for channelGroup {}", action, body, channelGroup);
+        log.trace("updateState with action {}, body {} for channelGroup {}", action, niceToString(body), niceToString(channelGroup));
         try {
             channelGroupsApi.executeChannelGroupAction(body, channelGroup.getId());
         } catch (ApiException e) {
@@ -172,7 +173,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
     public ChannelGroup findChannelGroup(final int id) {
         try {
             final io.swagger.client.model.ChannelGroup channelGroup = channelGroupsApi.getChannelGroup(id, CHANNEL_GROUP_DEFAULT_INCLUDE);
-            log.trace("got channelGroup {}", channelGroup);
+            log.trace("got channelGroup {}", niceToString(channelGroup));
             return new ChannelGroupImpl(channelGroup);
         } catch (ApiException e) {
             throw new pl.grzeslowski.jsupla.api.ApiException("/findChannelGroup/" + id, e);
@@ -184,7 +185,7 @@ final class ChannelApiImpl implements ChannelApi, ChannelGroupApi {
         try {
             return channelGroupsApi.getChannelGroups(CHANNEL_GROUP_DEFAULT_INCLUDE)
                            .stream()
-                           .peek(channelGroup -> log.trace("got channelGroup {}", channelGroup))
+                           .peek(channelGroup -> log.trace("got channelGroup {}", niceToString(channelGroup)))
                            .map(ChannelGroupImpl::new)
                            .collect(Collectors.toCollection(TreeSet::new));
         } catch (ApiException e) {

@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
+import static pl.grzeslowski.jsupla.api.internal.ToStringHelper.niceToString;
 
 @Slf4j
 final class DeviceApiImpl implements DeviceApi {
@@ -48,7 +49,7 @@ final class DeviceApiImpl implements DeviceApi {
     }
 
     private Device mapToDeviceWithChannels(final io.swagger.client.model.Device device) {
-        log.trace("Got device {}", device);
+        log.trace("Got device {}", niceToString(device));
         final SortedSet<Channel> channels = device.getChannelsIds()
                                                     .stream()
                                                     .map(channelApi::findChannel)
