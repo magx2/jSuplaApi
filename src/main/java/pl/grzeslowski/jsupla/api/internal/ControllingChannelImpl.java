@@ -19,9 +19,17 @@ final class ControllingChannelImpl extends ChannelImpl implements ControllingCha
 
     ControllingChannelImpl(final Channel channel) {
         super(channel);
-        state = findState(channel, () -> OnOffStateImpl.hi(channel));
+        state = findState(channel, () -> build(channel));
         openingTimeInMs = channel.getParam1();
         idOfOpeningSensor = channel.getParam2();
+    }
+
+    private static OnOffState build(Channel channel) {
+        if (channel.getParam2() != null && channel.getParam2() > 0) {
+            return OnOffStateImpl.hi(channel);
+        } else {
+            return null;
+        }
     }
 
     @Override
