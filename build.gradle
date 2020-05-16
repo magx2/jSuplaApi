@@ -55,7 +55,8 @@ dependencies {
 	compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
 	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 
-	compileOnly 'org.projectlombok:lombok:1.18.8'
+	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
@@ -75,27 +76,10 @@ test {
 
 apply from: 'integration-tests.gradle'
 
-def getOpenHabHome() {
-	return project.hasProperty("OPEN_HAB_HOME") ? project.OPEN_HAB_HOME : ""
+task fatJar(type: Jar) {
+	group = BasePlugin.BUILD_GROUP
+	getArchiveBaseName().set("${project.name}-fat")
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }
-
-if (openHabHome) {
-	println "  Enabling building fat jar for OpenHAb ($openHabHome)"
-	task fatJar(type: Jar) {
-		baseName = "${project.name}-fat"
-		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-		with jar
-	}
-	task openHab(type: Copy) {
-		from fatJar.archivePath.absolutePath
-		into "$openHabHome\\bundles\\org.openhab.binding.supla\\lib"
-	}
-	openHab.dependsOn fatJar
-	fatJar.dependsOn build
-	configure(openHab) {
-		group = BasePlugin.BUILD_GROUP
-	}
-	configure(fatJar) {
-		group = BasePlugin.BUILD_GROUP
-	}
-}
+build.dependsOn fatJar
