@@ -60,7 +60,7 @@ dependencies {
 
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
-	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.+'
+	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.15'
 	testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
 	testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
 	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.23.4'
