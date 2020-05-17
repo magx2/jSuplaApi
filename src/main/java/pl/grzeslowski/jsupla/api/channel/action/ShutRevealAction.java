@@ -1,14 +1,10 @@
 package pl.grzeslowski.jsupla.api.channel.action;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@ToString
-@Getter
-@EqualsAndHashCode
-public final class ShutRevealAction implements Action {
-    private final int shut;
+@Value
+public class ShutRevealAction implements Action {
+    int shut;
 
     private ShutRevealAction(final int shut) {
         if (shut > 100) {

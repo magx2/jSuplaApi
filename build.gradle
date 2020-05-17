@@ -1,20 +1,10 @@
 plugins {
-	id "org.shipkit.java" version "2.0.31"
+	id "org.shipkit.java" version "2.3.1"
 	id 'org.hidetake.swagger.generator' version '2.18.1'
+	id 'java'
 }
-
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'java'
-apply plugin: 'maven'
 
 group = 'pl.grzeslowski.jsupla.api'
-
-dependencies {
-//	swaggerCodegen 'io.swagger:swagger-codegen-cli:2.4.2'             // Swagger Codegen V2
-	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
-//	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
-}
 
 // https://github.com/int128/gradle-swagger-generator-plugin
 swaggerSources {
@@ -39,34 +29,29 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-install {
-	repositories.mavenInstaller {
-		pom.artifactId = 'swagger-java-client'
-	}
-}
-
 dependencies {
-	compile 'io.swagger.core.v3:swagger-annotations:2.0.0'
-	compile 'com.squareup.okhttp:okhttp:2.7.5'
-	compile 'com.squareup.okhttp:logging-interceptor:2.7.5'
-	compile 'com.google.code.gson:gson:2.8.1'
-	compile 'io.gsonfire:gson-fire:1.8.3'
-	compile 'org.threeten:threetenbp:1.3.5'
-	compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
-	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+	implementation 'io.swagger.core.v3:swagger-annotations:2.0.0'
+	implementation 'com.squareup.okhttp:okhttp:2.7.5'
+	implementation 'com.squareup.okhttp:logging-interceptor:2.7.5'
+	implementation 'com.google.code.gson:gson:2.8.1'
+	implementation 'io.gsonfire:gson-fire:1.8.3'
+	implementation 'org.threeten:threetenbp:1.3.5'
+	implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 
-	compileOnly 'org.projectlombok:lombok:1.18.8'
+	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
 
-	testCompile 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.+'
-	testCompile "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
-	testCompile "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
-	testRuntime "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
-	testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.23.4'
-	testCompile 'io.github.glytching:junit-extensions:2.3.0'
-	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
-	testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.15'
+	testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
+	testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
+	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.23.4'
+	testImplementation 'io.github.glytching:junit-extensions:2.3.0'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
 }
 
 test {
@@ -75,27 +60,10 @@ test {
 
 apply from: 'integration-tests.gradle'
 
-def getOpenHabHome() {
-	return project.hasProperty("OPEN_HAB_HOME") ? project.OPEN_HAB_HOME : ""
+task fatJar(type: Jar) {
+	group = BasePlugin.BUILD_GROUP
+	getArchiveBaseName().set("${project.name}-fat")
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }
-
-if (openHabHome) {
-	println "  Enabling building fat jar for OpenHAb ($openHabHome)"
-	task fatJar(type: Jar) {
-		baseName = "${project.name}-fat"
-		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-		with jar
-	}
-	task openHab(type: Copy) {
-		from fatJar.archivePath.absolutePath
-		into "$openHabHome\\bundles\\org.openhab.binding.supla\\lib"
-	}
-	openHab.dependsOn fatJar
-	fatJar.dependsOn build
-	configure(openHab) {
-		group = BasePlugin.BUILD_GROUP
-	}
-	configure(fatJar) {
-		group = BasePlugin.BUILD_GROUP
-	}
-}
+build.dependsOn fatJar

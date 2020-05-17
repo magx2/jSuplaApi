@@ -1,19 +1,16 @@
 package pl.grzeslowski.jsupla.api.channel.state;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@ToString
-@EqualsAndHashCode
-@Getter
-public final class Percentage implements Comparable<Percentage> {
+@Value
+public class Percentage implements Comparable<Percentage> {
     private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     public static final Percentage MAX = new Percentage(100);
     public static final Percentage MIN = new Percentage(0);
-    private final BigDecimal percentage;
+
+    BigDecimal percentage;
 
     public Percentage(final int percentage) {
         this(new BigDecimal(percentage));

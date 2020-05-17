@@ -1,14 +1,12 @@
 package pl.grzeslowski.jsupla.api.channel.action;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 import pl.grzeslowski.jsupla.api.Color;
 
-@ToString
-@Getter
-public final class SetBrightnessAndColor implements Action {
-    private final SetBrightnessAction brightnessAction;
-    private final SetColorAction setColorAction;
+@Value
+public class SetBrightnessAndColor implements Action {
+    SetBrightnessAction brightnessAction;
+    SetColorAction setColorAction;
 
     public SetBrightnessAndColor(final int brightness, Color.Rgb rgb) {
         brightnessAction = new SetBrightnessAction(brightness);

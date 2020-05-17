@@ -20,4 +20,6 @@ public interface Api {
     LocationApi getLocationApi();
 
     ServerInfoApi getServerInfoApi();
+
+    String getApiVersion();
 }

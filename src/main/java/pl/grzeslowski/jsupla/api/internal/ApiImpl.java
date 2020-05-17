@@ -45,4 +45,9 @@ public final class ApiImpl implements Api {
     public ServerInfoApi getServerInfoApi() {
         return new ServerInfoApiImpl(apiClient);
     }
+
+    @Override
+    public String getApiVersion() {
+        return ApiClientFactory.getApiVersion();
+    }
 }
