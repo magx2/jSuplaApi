@@ -60,17 +60,6 @@ test {
 
 apply from: 'integration-tests.gradle'
 
-publishing {
-	publications {
-		FatJarPublication(MavenPublication) {
-			from components.java
-			groupId group
-			artifactId project.name + '-fat'
-			version project.version
-		}
-	}
-}
-
 task fatJar(type: Jar) {
 	group = BasePlugin.BUILD_GROUP
 	getArchiveBaseName().set("${project.name}-fat")
@@ -78,3 +67,15 @@ task fatJar(type: Jar) {
 	with jar
 }
 build.dependsOn fatJar
+
+publishing {
+	publications {
+		FatJarPublication(MavenPublication) {
+			from components.java
+			groupId group
+			artifact fatJar
+			artifactId project.name + '-fat'
+			version project.version
+		}
+	}
+}
