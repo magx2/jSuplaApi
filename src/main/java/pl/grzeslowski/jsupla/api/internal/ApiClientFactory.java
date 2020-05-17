@@ -9,6 +9,10 @@ final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
     private static final String API_VERSION = "2.3.0";
 
+    public static String getApiVersion() {
+        return API_VERSION;
+    }
+
     private ApiClientFactory() {
     }
 
