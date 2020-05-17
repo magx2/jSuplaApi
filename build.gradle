@@ -70,6 +70,13 @@ build.dependsOn fatJar
 
 publishing {
 	publications {
+		JarPublication(MavenPublication) {
+			from components.java
+			groupId group
+			artifact jar
+			artifactId project.name
+			version project.version
+		}
 		FatJarPublication(MavenPublication) {
 			from components.java
 			groupId group
