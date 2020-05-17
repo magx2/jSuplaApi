@@ -1,20 +1,10 @@
 plugins {
-	id "org.shipkit.java" version "2.0.31"
+	id "org.shipkit.java" version "2.3.1"
 	id 'org.hidetake.swagger.generator' version '2.18.1'
+	id 'java'
 }
-
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'java'
-apply plugin: 'maven'
 
 group = 'pl.grzeslowski.jsupla.api'
-
-dependencies {
-//	swaggerCodegen 'io.swagger:swagger-codegen-cli:2.4.2'             // Swagger Codegen V2
-	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
-//	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
-}
 
 // https://github.com/int128/gradle-swagger-generator-plugin
 swaggerSources {
@@ -39,12 +29,6 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-install {
-	repositories.mavenInstaller {
-		pom.artifactId = 'swagger-java-client'
-	}
-}
-
 dependencies {
 	implementation 'io.swagger.core.v3:swagger-annotations:2.0.0'
 	implementation 'com.squareup.okhttp:okhttp:2.7.5'
@@ -58,7 +42,7 @@ dependencies {
 	compileOnly "org.projectlombok:lombok:$lombokVersion"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
 
 	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.15'
 	testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
@@ -67,7 +51,7 @@ dependencies {
 	testImplementation 'io.github.glytching:junit-extensions:2.3.0'
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
 	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-	testRuntime "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
 }
 
 test {
