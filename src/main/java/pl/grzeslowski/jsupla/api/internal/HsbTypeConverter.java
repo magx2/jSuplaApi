@@ -33,9 +33,9 @@ final class HsbTypeConverter {
     }
 
     @Value
-    class CloudFormat {
-        private final String color;
-        private final int colorBrightness;
+    static class CloudFormat {
+        String color;
+        int colorBrightness;
     }
 
     private String toHex(int value) {

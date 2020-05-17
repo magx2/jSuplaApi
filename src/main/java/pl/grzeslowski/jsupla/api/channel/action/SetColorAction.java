@@ -1,15 +1,13 @@
 package pl.grzeslowski.jsupla.api.channel.action;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 import pl.grzeslowski.jsupla.api.Color;
 
 import static java.util.Objects.requireNonNull;
 
-@Getter
-@ToString
-public final class SetColorAction implements Action {
-    private final Color.Rgb rgb;
+@Value
+public class SetColorAction implements Action {
+    Color.Rgb rgb;
 
     public static SetColorAction setRgb(Color.Rgb rgb) {
         return new SetColorAction(rgb);

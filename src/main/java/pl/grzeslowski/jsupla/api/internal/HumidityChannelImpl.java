@@ -31,7 +31,7 @@ final class HumidityChannelImpl extends ChannelImpl implements HumidityChannel {
         final ChannelState state = channel.getState();
         final BigDecimal humidity = state.getHumidity();
         return new BigDecimal(humidityAdjustment)
-                       .divide(new BigDecimal(100.0), CEILING)
+                       .divide(new BigDecimal(100), CEILING)
                        .add(humidity);
     }
 

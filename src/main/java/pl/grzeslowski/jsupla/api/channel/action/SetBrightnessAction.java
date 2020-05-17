@@ -1,12 +1,10 @@
 package pl.grzeslowski.jsupla.api.channel.action;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@ToString
-@Getter
+@Value
 public class SetBrightnessAction implements Action {
-    private final int brightness;
+    int brightness;
 
     public SetBrightnessAction(final int brightness) {
         if (brightness > 100) {
