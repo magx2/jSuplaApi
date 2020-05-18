@@ -60,29 +60,3 @@ test {
 
 apply from: 'integration-tests.gradle'
 
-task fatJar(type: Jar) {
-	group = BasePlugin.BUILD_GROUP
-	getArchiveBaseName().set("${project.name}-fat")
-	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-	with jar
-}
-build.dependsOn fatJar
-
-publishing {
-	publications {
-		JarPublication(MavenPublication) {
-			from components.java
-			groupId group
-			artifact jar
-			artifactId project.name
-			version project.version
-		}
-		FatJarPublication(MavenPublication) {
-			from components.java
-			groupId group
-			artifact fatJar
-			artifactId project.name + '-fat'
-			version project.version
-		}
-	}
-}

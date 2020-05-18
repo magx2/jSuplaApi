@@ -13,8 +13,6 @@ shipkit {
 allprojects {
 	plugins.withId("org.shipkit.bintray") {
 		bintray {
-			publications = ['JarPublication', 'FatJarPublication']
-			println publications
 			key = System.getenv("BINTRAY_API_KEY")
 			pkg {
 				repo = "bigboy"

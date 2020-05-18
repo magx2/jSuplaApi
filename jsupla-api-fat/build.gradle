@@ -1,0 +1,21 @@
+plugins {
+	id 'java'
+}
+
+group = 'pl.grzeslowski.jsupla.api'
+
+repositories {
+	jcenter()
+	maven { url "https://dl.bintray.com/big-boy/bigboy" }
+	jcenter()
+	mavenLocal()
+}
+
+dependencies {
+	implementation rootProject
+}
+
+
+jar {
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
