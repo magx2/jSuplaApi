@@ -69,7 +69,11 @@ public class Color {
         }
 
         public Hsv(final double hue, final double saturation, final double value) {
-            this.hue = checkBoundaries(hue, 0.0, MAX_HUE);
+            if (hue != MAX_HUE) {
+                this.hue = checkBoundaries(hue, 0.0, MAX_HUE);
+            } else {
+                this.hue = 0.0;
+            }
             this.saturation = checkBoundaries(saturation, 0.0, 1.0);
             this.value = checkBoundaries(value, 0.0, 1.0);
         }
