@@ -30,7 +30,7 @@ final class OneLineHttpLoggingInterceptor implements Interceptor {
 
         @Override
         public void log(final String message) {
-            stringBuilder.append(message).append("\n");
+            stringBuilder.append("\t").append(message).append("\n");
         }
 
         String wholeMessage() {
