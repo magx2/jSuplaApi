@@ -5,6 +5,8 @@ import io.swagger.client.auth.OAuth;
 
 import java.util.Base64;
 
+import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.BODY;
+
 final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
     private static final String API_VERSION = "2.3.0";
@@ -29,6 +31,10 @@ final class ApiClientFactory {
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
         password.setAccessToken(oAuthToken);
         client.setBasePath(url + "/api/v" + API_VERSION);
+        if (ApiImpl.getLog().isTraceEnabled()) {
+            client.getHttpClient().interceptors().add(
+                    new OneLineHttpLoggingInterceptor(ApiImpl.getLog()::trace, BODY));
+        }
         return client;
     }
 
