@@ -2,20 +2,20 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.auth.OAuth;
+import lombok.NoArgsConstructor;
 
 import java.util.Base64;
 
 import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.BODY;
+import static lombok.AccessLevel.PRIVATE;
 
+@NoArgsConstructor(access = PRIVATE)
 final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
     private static final String API_VERSION = "2.3.0";
 
     public static String getApiVersion() {
         return API_VERSION;
-    }
-
-    private ApiClientFactory() {
     }
 
     /**
@@ -25,7 +25,7 @@ final class ApiClientFactory {
      * @param url        server base URL
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    public ApiClient newApiClient(String oAuthToken, String url) {
+    ApiClient newApiClient(String oAuthToken, String url) {
         ApiClient client = new ApiClient();
         client.setUserAgent("magx2/jSuplaApi");
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
@@ -44,7 +44,7 @@ final class ApiClientFactory {
      * @param oAuthToken to authorize
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    public ApiClient newApiClient(String oAuthToken) {
+    ApiClient newApiClient(String oAuthToken) {
         String[] split = oAuthToken.split("\\.");
         if (split.length < 2) {
             throw new IllegalArgumentException("OAuth token does not contain '.' (dot)! Token: " + oAuthToken);
