@@ -51,6 +51,7 @@ dependencies {
 	testImplementation 'io.github.glytching:junit-extensions:2.3.0'
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
 	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	testImplementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
 }
 
