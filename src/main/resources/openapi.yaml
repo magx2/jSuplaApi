@@ -809,8 +809,15 @@ paths:
       - name: id
         in: path
         required: true
+        description: IO Device's identifier or GUID
         schema:
-          type: integer
+          oneOf:
+            - type: integer
+              description: IO Device's identifier
+              example: 123
+            - type: string
+              description: IO Device's GUID
+              example: 'A7A19E1-09E8-68B4-3A2F-BD304E563A6A'
     get:
       summary: Get IO Device
       tags:
@@ -1562,14 +1569,17 @@ components:
       type: object
     ChannelState:
       description: >-
-        The channel's state. The value and the format is depended on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
+        The channel's state. The value and the format depends on the channel's function.
+        Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).
       oneOf:
         - $ref: '#/components/schemas/BrightnessState'
         - $ref: '#/components/schemas/ColorAndBrightnessState'
         - $ref: '#/components/schemas/ColorState'
         - $ref: '#/components/schemas/DepthState'
         - $ref: '#/components/schemas/DistanceState'
+        - $ref: '#/components/schemas/ElectricityMeterState'
         - $ref: '#/components/schemas/HumidityState'
+        - $ref: '#/components/schemas/ImpulseCounterState'
         - $ref: '#/components/schemas/OnState'
         - $ref: '#/components/schemas/HiState'
         - $ref: '#/components/schemas/PartialOpenState'
@@ -1646,6 +1656,39 @@ components:
             `distance` contains current sensor value
       required:
         - connected
+    ElectricityMeterState:
+      properties:
+        connected: {type: boolean}
+        support:
+          type: number
+          description: >-
+            A bitmask indicating which measurements are supported by the electricity meter.
+            See https://github.com/SUPLA/supla-cloud/blob/master/src/SuplaBundle/Enums/ElectricityMeterSupportBits.php
+            for more info. All not supported measurements will not be present in the response.
+        totalCost: {type: number}
+        pricePerUnit: {type: number}
+        currency: {type: string}
+        phases:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElectricityMeterStatePhase'
+      required:
+        - connected
+    ElectricityMeterStatePhase:
+      properties:
+        number: {type: number}
+        frequency: {type: number}
+        voltage: {type: number}
+        current: {type: number}
+        powerActive: {type: number}
+        powerReactive: {type: number}
+        powerApparent: {type: number}
+        powerFactor: {type: number}
+        phaseAngle: {type: number}
+        totalForwardActiveEnergy: {type: number}
+        totalReverseActiveEnergy: {type: number}
+        totalForwardReactiveEnergy: {type: number}
+        totalReverseReactiveEnergy: {type: number}
     HumidityState:
       properties:
         connected:
@@ -1656,6 +1699,17 @@ components:
             `humidity` contains current value of humidity provided by the sensor (including possibly configured delta adjustment), in percent; possible values from 0 to 100
           minimum: 0
           maximum: 100
+      required:
+        - connected
+    ImpulseCounterState:
+      properties:
+        connected: {type: boolean}
+        totalCost: {type: number}
+        pricePerUnit: {type: number}
+        counter: {type: number}
+        calculatedValue: {type: number}
+        currency: {type: string}
+        unit: {type: string}
       required:
         - connected
     OnState:
