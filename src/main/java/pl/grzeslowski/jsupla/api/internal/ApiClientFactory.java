@@ -20,7 +20,7 @@ final class ApiClientFactory {
      * Creates new {@link ApiClient} with given OAuth token and server URL.
      *
      * @param oAuthToken to authorize
-     * @param url server base URL
+     * @param url        server base URL
      * @return new {@link ApiClient} with configured authorization and base path
      */
     public ApiClient newApiClient(String oAuthToken, String url) {
@@ -41,9 +41,9 @@ final class ApiClientFactory {
     public ApiClient newApiClient(String oAuthToken) {
         String[] split = oAuthToken.split("\\.");
         if (split.length < 2) {
-            throw new IllegalArgumentException("OAuth token does not contain '.' (dot)!");
+            throw new IllegalArgumentException("OAuth token does not contain '.' (dot)! Token: " + oAuthToken);
         } else if (split.length > 2) {
-            throw new IllegalArgumentException("OAuth token has too many '.' (dot) " + split.length + "!");
+            throw new IllegalArgumentException("OAuth token has too many '.' (dot) " + split.length + "! Token: " + oAuthToken);
         }
         String urlBase64 = split[1];
         String url = new String(Base64.getDecoder().decode(urlBase64));
