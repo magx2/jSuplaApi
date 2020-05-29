@@ -14,6 +14,21 @@ class ApiClientFactorySpec extends Specification {
 		client.getAuthentications()["BearerAuth"].accessToken == token
 	}
 
+	def "should add OneLineHttpLoggingInterceptor to interceptors"() {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token)
+
+		then:
+		client.getHttpClient()
+				.interceptors()
+				.stream()
+				.map { it.getClass() }
+				.anyMatch { it == OneLineHttpLoggingInterceptor.class }
+	}
+
 	def "should set proper base path"() {
 		given:
 		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
