@@ -2,6 +2,9 @@ package pl.grzeslowski.jsupla.api;
 
 import pl.grzeslowski.jsupla.api.internal.ApiImpl;
 
+import java.time.ZonedDateTime;
+import java.util.Optional;
+
 public interface Api {
     static Api getInstance(String token) {
         return new ApiImpl(token);
@@ -22,4 +25,16 @@ public interface Api {
     ServerInfoApi getServerInfoApi();
 
     String getApiVersion();
+
+    Optional<ApiUsageStatistics> getApiUsageStatistics();
+
+    interface ApiUsageStatistics {
+        ZonedDateTime getLastUpdateDate();
+
+        int getLimit();
+
+        int getRemainingLimit();
+
+        ZonedDateTime getResetDate();
+    }
 }
