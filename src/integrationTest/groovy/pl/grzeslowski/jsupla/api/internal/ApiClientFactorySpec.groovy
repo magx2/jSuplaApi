@@ -29,6 +29,36 @@ class ApiClientFactorySpec extends Specification {
 				.anyMatch { it == OneLineHttpLoggingInterceptor.class }
 	}
 
+	def "should add ApiUsageStatisticsInterceptor to interceptors"() {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token, Mock(ApiUsageStatisticsSetter.class))
+
+		then:
+		client.getHttpClient()
+				.interceptors()
+				.stream()
+				.map { it.getClass() }
+				.anyMatch { it == ApiUsageStatisticsInterceptor.class }
+	}
+
+	def "should not add ApiUsageStatisticsInterceptor to interceptors"() {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+
+		then:
+		!client.getHttpClient()
+				.interceptors()
+				.stream()
+				.map { it.getClass() }
+				.anyMatch { it == ApiUsageStatisticsInterceptor.class }
+	}
+
 	def "should set proper base path"() {
 		given:
 		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
