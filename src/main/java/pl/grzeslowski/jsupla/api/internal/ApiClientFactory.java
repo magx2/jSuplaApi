@@ -35,10 +35,7 @@ final class ApiClientFactory {
         password.setAccessToken(oAuthToken);
         client.setBasePath(url + "/api/v" + API_VERSION);
         final List<Interceptor> interceptors = client.getHttpClient().interceptors();
-        if (ApiImpl.getLog().isTraceEnabled()) {
-            interceptors.add(
-                    new OneLineHttpLoggingInterceptor(ApiImpl.getLog()::trace, BODY));
-        }
+        interceptors.add(new OneLineHttpLoggingInterceptor(ApiImpl.getLog()::trace, BODY));
         if (apiUsageStatisticsSetter != null) {
             interceptors.add(new ApiUsageStatisticsInterceptor(apiUsageStatisticsSetter));
         }
@@ -86,6 +83,6 @@ final class ApiClientFactory {
      */
     @Deprecated
     ApiClient newApiClient(String oAuthToken) {
-        return newApiClient(oAuthToken,(String) null);
+        return newApiClient(oAuthToken, (String) null);
     }
 }
