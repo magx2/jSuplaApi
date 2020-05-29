@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.api.internal
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ApiClientFactorySpec extends Specification {
 	def "should set oAuth token"() {
@@ -57,6 +58,51 @@ class ApiClientFactorySpec extends Specification {
 				.stream()
 				.map { it.getClass() }
 				.anyMatch { it == ApiUsageStatisticsInterceptor.class }
+	}
+
+	@Unroll
+	def "should not verify SSL if property is set to `#property`"(property) {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+		System.setProperty("jSuplaApi.noVerifyingSsl", property)
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+
+		then:
+		!client.verifyingSsl
+
+		where:
+		property << ["true", "True", "tRuE"]
+	}
+
+	@Unroll
+	def "should verify SSL if property is set to `#property`"(property) {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+		System.setProperty("jSuplaApi.noVerifyingSsl", property)
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+
+		then:
+		client.verifyingSsl
+
+		where:
+		property << ["false", "False", "fAlSe", "blabla", ""]
+	}
+
+	@Unroll
+	def "should verify SSL if there is no property"() {
+		given:
+		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
+		System.clearProperty("jSuplaApi.noVerifyingSsl")
+
+		when:
+		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+
+		then:
+		client.verifyingSsl
 	}
 
 	def "should set proper base path"() {
