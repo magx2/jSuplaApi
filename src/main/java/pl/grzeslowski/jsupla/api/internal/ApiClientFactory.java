@@ -39,6 +39,9 @@ final class ApiClientFactory {
         if (apiUsageStatisticsSetter != null) {
             interceptors.add(new ApiUsageStatisticsInterceptor(apiUsageStatisticsSetter));
         }
+        if (Boolean.getBoolean("jSuplaApi.noVerifyingSsl")) {
+            client.setVerifyingSsl(false);
+        }
         return client;
     }
 
