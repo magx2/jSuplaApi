@@ -46,7 +46,7 @@ class ApiClientFactorySpec extends Specification {
 
 		then:
 		IllegalArgumentException ex = thrown()
-		ex.message == "OAuth token does not contain '.' (dot)!"
+		ex.message.startsWith("OAuth token does not contain '.' (dot)! Token: ")
 	}
 
 	def "should throw exception when there is too many dots in token"() {
@@ -58,6 +58,6 @@ class ApiClientFactorySpec extends Specification {
 
 		then:
 		IllegalArgumentException ex = thrown()
-		ex.message.startsWith("OAuth token has too many '.' (dot) ")
+		ex.message.startsWith("OAuth token has too many '.' (dot) 3! Token: ")
 	}
 }

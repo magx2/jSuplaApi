@@ -86,6 +86,6 @@ final class ApiClientFactory {
      */
     @Deprecated
     ApiClient newApiClient(String oAuthToken) {
-        return newApiClient(oAuthToken, (String) null);
+        return newApiClient(oAuthToken, (ApiUsageStatisticsSetter) null);
     }
 }
