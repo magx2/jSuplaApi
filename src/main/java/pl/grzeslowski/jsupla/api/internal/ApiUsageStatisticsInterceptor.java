@@ -2,11 +2,11 @@ package pl.grzeslowski.jsupla.api.internal;
 
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import pl.grzeslowski.jsupla.api.Api;
 
 import java.io.IOException;
@@ -32,10 +32,14 @@ final class ApiUsageStatisticsInterceptor implements Interceptor {
 
     @Override
     public Response intercept(final Chain chain) throws IOException {
-        final Request request = chain.request();
-        final Response response = chain.proceed(request);
-        final Headers headers = response.headers();
-        buildApiUsageStatistics(headers, request.urlString()).ifPresent(apiUsageStatisticsSetter::setApiUsageStatistics);
+        val request = chain.request();
+        val response = chain.proceed(request);
+        val headers = response.headers();
+        try {
+            buildApiUsageStatistics(headers, request.urlString()).ifPresent(apiUsageStatisticsSetter::setApiUsageStatistics);
+        } catch (Exception e) {
+            log.warn("Cannot get ApiUsageStatistics from response `{}`, headers `{}`", response, response.headers(), e);
+        }
         return response;
     }
 
