@@ -1908,6 +1908,7 @@ components:
             - DIMMER
             - RGBLEDCONTROLLER
             - DIMMERANDRGBLED
+            - ELECTRICITYMETER
         caption:
           type: string
           example: Sensor (normal open)
@@ -2021,6 +2022,7 @@ components:
         - WEIGHTSENSOR
         - WEATHER_STATION
         - STAIRCASETIMER
+        - ELECTRICITYMETER
     ChannelFunctionAction:
       properties:
         id:

@@ -81,6 +81,8 @@ final class ChannelFunctionDispatcher {
                 return functionSwitch.onWeatherStation(channel);
             case STAIRCASETIMER:
                 return functionSwitch.onStaircaseTimer(channel);
+            case ELECTRICITYMETER:
+                return functionSwitch.onElectricMeter(channel);
             default:
                 return functionSwitch.onDefault(channel);
         }
@@ -146,6 +148,8 @@ final class ChannelFunctionDispatcher {
         T onWeatherStation(Channel channel);
 
         T onStaircaseTimer(Channel channel);
+
+        T onElectricMeter(Channel channel);
 
         T onDefault(Channel channel);
     }

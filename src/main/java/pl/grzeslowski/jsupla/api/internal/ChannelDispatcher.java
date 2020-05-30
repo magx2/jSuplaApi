@@ -159,6 +159,11 @@ final class ChannelDispatcher implements ChannelFunctionDispatcher.FunctionSwitc
     }
 
     @Override
+    public Channel onElectricMeter(final io.swagger.client.model.Channel channel) {
+        return new ElectricityMeterChannelImpl(channel);
+    }
+
+    @Override
     public Channel onDefault(final io.swagger.client.model.Channel channel) {
         return new NoneChannelImpl(channel);
     }
