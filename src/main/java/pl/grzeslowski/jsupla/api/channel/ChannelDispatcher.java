@@ -35,6 +35,8 @@ public class ChannelDispatcher {
             return functionSwitch.onDepthChannel((DepthChannel) channel);
         } else if (channel instanceof DistanceChannel) {
             return functionSwitch.onDistanceChannel((DistanceChannel) channel);
+        } else if (channel instanceof ElectricityMeterChannel) {
+            return functionSwitch.onElectricityMeterChannel((ElectricityMeterChannel) channel);
         } else {
             return functionSwitch.onDefault(channel);
         }
@@ -66,6 +68,8 @@ public class ChannelDispatcher {
         T onDepthChannel(DepthChannel channel);
 
         T onDistanceChannel(DistanceChannel channel);
+
+        T onElectricityMeterChannel(ElectricityMeterChannel channel);
 
         T onDefault(Channel channel);
     }
