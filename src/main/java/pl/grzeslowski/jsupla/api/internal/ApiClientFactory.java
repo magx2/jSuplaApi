@@ -23,12 +23,11 @@ final class ApiClientFactory {
     /**
      * Creates new {@link ApiClient} with given OAuth token and server URL.
      *
-     * @param oAuthToken               to authorize
-     * @param url                      server base URL
-     * @param apiUsageStatisticsSetter object to st {@link pl.grzeslowski.jsupla.api.Api.ApiUsageStatistics}
+     * @param oAuthToken to authorize
+     * @param url        server base URL
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    private ApiClient newApiClient(String oAuthToken, String url, ApiUsageStatisticsSetter apiUsageStatisticsSetter) {
+    private ApiClient newApiClient(String oAuthToken, String url) {
         ApiClient client = new ApiClient();
         client.setUserAgent("magx2/jSuplaApi");
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
@@ -36,9 +35,7 @@ final class ApiClientFactory {
         client.setBasePath(url + "/api/v" + API_VERSION);
         final List<Interceptor> interceptors = client.getHttpClient().interceptors();
         interceptors.add(new OneLineHttpLoggingInterceptor(ApiImpl.getLog()::trace, BODY));
-        if (apiUsageStatisticsSetter != null) {
-            interceptors.add(new ApiUsageStatisticsInterceptor(apiUsageStatisticsSetter));
-        }
+        interceptors.add(new ApiUsageStatisticsInterceptor(ApiUsageStatisticsCollector.INSTANCE.newTokenBound(oAuthToken)));
         if (Boolean.getBoolean("jSuplaApi.noVerifyingSsl")) {
             client.setVerifyingSsl(false);
         }
@@ -48,11 +45,10 @@ final class ApiClientFactory {
     /**
      * Creates new {@link ApiClient} with given OAuth token.
      *
-     * @param oAuthToken               to authorize
-     * @param apiUsageStatisticsSetter object to st {@link pl.grzeslowski.jsupla.api.Api.ApiUsageStatistics}
+     * @param oAuthToken to authorize
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    ApiClient newApiClient(String oAuthToken, ApiUsageStatisticsSetter apiUsageStatisticsSetter) {
+    ApiClient newApiClient(String oAuthToken) {
         String[] split = oAuthToken.split("\\.");
         if (split.length < 2) {
             throw new IllegalArgumentException("OAuth token does not contain '.' (dot)! Token: " + oAuthToken);
@@ -61,6 +57,6 @@ final class ApiClientFactory {
         }
         String urlBase64 = split[1];
         String url = new String(Base64.getDecoder().decode(urlBase64));
-        return newApiClient(oAuthToken, url, apiUsageStatisticsSetter);
+        return newApiClient(oAuthToken, url);
     }
 }

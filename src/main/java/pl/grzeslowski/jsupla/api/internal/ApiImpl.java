@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.api.internal;
 
 import io.swagger.client.ApiClient;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import pl.grzeslowski.jsupla.api.Api;
@@ -11,18 +10,18 @@ import pl.grzeslowski.jsupla.api.DeviceApi;
 import pl.grzeslowski.jsupla.api.LocationApi;
 import pl.grzeslowski.jsupla.api.ServerInfoApi;
 
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
 
 @Slf4j
-public final class ApiImpl implements Api, ApiUsageStatisticsSetter {
+public final class ApiImpl implements Api {
     private final ApiClient apiClient;
-    private ApiUsageStatistics apiUsageStatistics;
+    private final String token;
 
     public ApiImpl(String token) {
-        this.apiClient = INSTANCE.newApiClient(token, this);
+        this.apiClient = INSTANCE.newApiClient(token);
+        this.token = token;
     }
 
     static Logger getLog() {
@@ -61,19 +60,6 @@ public final class ApiImpl implements Api, ApiUsageStatisticsSetter {
 
     @Override
     public Optional<ApiUsageStatistics> getApiUsageStatistics() {
-        return Optional.ofNullable(apiUsageStatistics);
-    }
-
-    @Override
-    public void setApiUsageStatistics(final ApiUsageStatistics apiUsageStatistics) {
-        this.apiUsageStatistics = apiUsageStatistics;
-    }
-
-    @Value
-    static class ApiUsageStatisticsImpl implements ApiUsageStatistics {
-        ZonedDateTime lastUpdateDate;
-        int limit;
-        int remainingLimit;
-        ZonedDateTime resetDate;
+        return ApiUsageStatisticsCollector.INSTANCE.getStatistics(token);
     }
 }

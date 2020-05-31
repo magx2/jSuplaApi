@@ -40,7 +40,9 @@ dependencies {
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 
 	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	testImplementation "org.projectlombok:lombok:$lombokVersion"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+	testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
 	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
 

@@ -3,8 +3,10 @@ package pl.grzeslowski.jsupla.api.internal;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Response;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.api.Api;
@@ -20,6 +22,7 @@ import java.util.Optional;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
+import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -49,7 +52,7 @@ final class ApiUsageStatisticsInterceptor implements Interceptor {
         final Optional<ZonedDateTime> resetDate = parseResetDate(headers, url);
 
         if (limit.isPresent() && remainingLimit.isPresent() && resetDate.isPresent()) {
-            return of(new ApiImpl.ApiUsageStatisticsImpl(
+            return of(new ApiUsageStatisticsImpl(
                     ZonedDateTime.now(ZoneId.of("UTC")),
                     limit.get(),
                     remainingLimit.get(),
@@ -90,5 +93,14 @@ final class ApiUsageStatisticsInterceptor implements Interceptor {
             log.warn("Cannot parse `{}` in URL `{}`", values.get(0), url, e);
             return Optional.empty();
         }
+    }
+
+    @Value
+    @AllArgsConstructor(access = PRIVATE)
+    static class ApiUsageStatisticsImpl implements Api.ApiUsageStatistics {
+        ZonedDateTime lastUpdateDate;
+        int limit;
+        int remainingLimit;
+        ZonedDateTime resetDate;
     }
 }
