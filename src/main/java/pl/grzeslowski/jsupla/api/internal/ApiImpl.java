@@ -21,10 +21,6 @@ public final class ApiImpl implements Api, ApiUsageStatisticsSetter {
     private final ApiClient apiClient;
     private ApiUsageStatistics apiUsageStatistics;
 
-    public ApiImpl(String token, String url) {
-        this.apiClient = INSTANCE.newApiClient(token, url, this);
-    }
-
     public ApiImpl(String token) {
         this.apiClient = INSTANCE.newApiClient(token, this);
     }

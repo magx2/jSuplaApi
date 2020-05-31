@@ -28,7 +28,7 @@ final class ApiClientFactory {
      * @param apiUsageStatisticsSetter object to st {@link pl.grzeslowski.jsupla.api.Api.ApiUsageStatistics}
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    ApiClient newApiClient(String oAuthToken, String url, ApiUsageStatisticsSetter apiUsageStatisticsSetter) {
+    private ApiClient newApiClient(String oAuthToken, String url, ApiUsageStatisticsSetter apiUsageStatisticsSetter) {
         ApiClient client = new ApiClient();
         client.setUserAgent("magx2/jSuplaApi");
         OAuth password = (OAuth) client.getAuthentication("BearerAuth");
@@ -62,30 +62,5 @@ final class ApiClientFactory {
         String urlBase64 = split[1];
         String url = new String(Base64.getDecoder().decode(urlBase64));
         return newApiClient(oAuthToken, url, apiUsageStatisticsSetter);
-    }
-
-    /**
-     * Creates new {@link ApiClient} with given OAuth token and server URL.
-     *
-     * @param oAuthToken to authorize
-     * @param url        server base URL
-     * @return new {@link ApiClient} with configured authorization and base path
-     * @deprecated use {@link ApiClientFactory#newApiClient(String, String, ApiUsageStatisticsSetter)}
-     */
-    @Deprecated
-    ApiClient newApiClient(String oAuthToken, String url) {
-        return newApiClient(oAuthToken, url, null);
-    }
-
-    /**
-     * Creates new {@link ApiClient} with given OAuth token.
-     *
-     * @param oAuthToken to authorize
-     * @return new {@link ApiClient} with configured authorization and base path
-     * @deprecated use {@link ApiClientFactory#newApiClient(String, ApiUsageStatisticsSetter)}
-     */
-    @Deprecated
-    ApiClient newApiClient(String oAuthToken) {
-        return newApiClient(oAuthToken, (ApiUsageStatisticsSetter) null);
     }
 }
