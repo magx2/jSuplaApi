@@ -35,25 +35,10 @@ class ApiClientFactorySpec extends Specification {
 		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
 
 		when:
-		def client = ApiClientFactory.INSTANCE.newApiClient(token, Mock(ApiUsageStatisticsSetter.class))
+		def client = ApiClientFactory.INSTANCE.newApiClient(token)
 
 		then:
 		client.getHttpClient()
-				.interceptors()
-				.stream()
-				.map { it.getClass() }
-				.anyMatch { it == ApiUsageStatisticsInterceptor.class }
-	}
-
-	def "should not add ApiUsageStatisticsInterceptor to interceptors"() {
-		given:
-		def token = "MTA1YzRhYWRiNzcyYTI0NzliNmMxZTM0MTkwNGM4NGYzYjY0YjBmZjBkYTUxZGVhNDg1NmYyODc1NDM3NDQxOA.aHR0cHM6Ly9zdnI0LnN1cGxhLm9yZw=="
-
-		when:
-		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
-
-		then:
-		!client.getHttpClient()
 				.interceptors()
 				.stream()
 				.map { it.getClass() }
@@ -67,7 +52,7 @@ class ApiClientFactorySpec extends Specification {
 		System.setProperty("jSuplaApi.noVerifyingSsl", property)
 
 		when:
-		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+		def client = ApiClientFactory.INSTANCE.newApiClient(token)
 
 		then:
 		!client.verifyingSsl
@@ -83,7 +68,7 @@ class ApiClientFactorySpec extends Specification {
 		System.setProperty("jSuplaApi.noVerifyingSsl", property)
 
 		when:
-		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+		def client = ApiClientFactory.INSTANCE.newApiClient(token)
 
 		then:
 		client.verifyingSsl
@@ -99,7 +84,7 @@ class ApiClientFactorySpec extends Specification {
 		System.clearProperty("jSuplaApi.noVerifyingSsl")
 
 		when:
-		def client = ApiClientFactory.INSTANCE.newApiClient(token, (ApiUsageStatisticsSetter) null)
+		def client = ApiClientFactory.INSTANCE.newApiClient(token)
 
 		then:
 		client.verifyingSsl

@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.api.internal;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+import lombok.val;
 
 import java.io.IOException;
 
@@ -30,7 +31,20 @@ final class OneLineHttpLoggingInterceptor implements Interceptor {
 
         @Override
         public void log(final String message) {
-            stringBuilder.append("\t").append(message).append("\n");
+            final String parsedMessage;
+            if (message.startsWith("Authorization")) {
+                val noAuth = message.substring(15);
+                val space = noAuth.indexOf(" ");
+                if (space > -1) {
+                    val type = noAuth.substring(0, space);
+                    parsedMessage = "Authorization: " + type + " <SECRET>";
+                } else {
+                    parsedMessage = "Authorization: <SECRET>";
+                }
+            } else {
+                parsedMessage = message;
+            }
+            stringBuilder.append("\t").append(parsedMessage).append("\n");
         }
 
         String wholeMessage() {
