@@ -16,11 +16,9 @@ import static pl.grzeslowski.jsupla.api.internal.ApiClientFactory.INSTANCE;
 
 @Slf4j
 public final class ApiImpl implements Api {
-    private final ApiClient apiClient;
     private final String token;
 
     public ApiImpl(String token) {
-        this.apiClient = INSTANCE.newApiClient(token);
         this.token = token;
     }
 
@@ -28,29 +26,33 @@ public final class ApiImpl implements Api {
         return log;
     }
 
+    private ApiClient newApiClient() {
+        return INSTANCE.newApiClient(token);
+    }
+
     @Override
     public DeviceApi getDeviceApi() {
-        return new DeviceApiImpl(apiClient);
+        return new DeviceApiImpl(newApiClient());
     }
 
     @Override
     public ChannelApi getChannelApi() {
-        return new ChannelApiImpl(apiClient);
+        return new ChannelApiImpl(newApiClient());
     }
 
     @Override
     public ChannelGroupApi getChannelGroupApi() {
-        return new ChannelApiImpl(apiClient);
+        return new ChannelApiImpl(newApiClient());
     }
 
     @Override
     public LocationApi getLocationApi() {
-        return new LocationApiImpl(apiClient);
+        return new LocationApiImpl(newApiClient());
     }
 
     @Override
     public ServerInfoApi getServerInfoApi() {
-        return new ServerInfoApiImpl(apiClient);
+        return new ServerInfoApiImpl(newApiClient());
     }
 
     @Override
