@@ -12,7 +12,7 @@ import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.BODY;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-final class ApiClientFactory {
+public final class ApiClientFactory {
     public static final ApiClientFactory INSTANCE = new ApiClientFactory();
     private static final String API_VERSION = "2.3.0";
 
@@ -48,7 +48,7 @@ final class ApiClientFactory {
      * @param oAuthToken to authorize
      * @return new {@link ApiClient} with configured authorization and base path
      */
-    ApiClient newApiClient(String oAuthToken) {
+    public ApiClient newApiClient(String oAuthToken) {
         String[] split = oAuthToken.split("\\.");
         if (split.length < 2) {
             throw new IllegalArgumentException("OAuth token does not contain '.' (dot)! Token: " + oAuthToken);

@@ -1,10 +1,19 @@
 plugins {
-	id "org.shipkit.java" version "2.3.1"
 	id 'org.hidetake.swagger.generator' version '2.18.1'
 	id 'java'
 }
 
 group = 'pl.grzeslowski.jsupla.api'
+version '4.1.0'
+
+apply plugin: 'maven-publish'
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from components.java
+		}
+	}
+}
 
 // https://github.com/int128/gradle-swagger-generator-plugin
 swaggerSources {
@@ -20,10 +29,8 @@ sourceSets.main.java.srcDir "${swaggerSources.suplaCloud.code.outputDir}/src/mai
 sourceSets.main.resources.srcDir "${swaggerSources.suplaCloud.code.outputDir}/src/main/resources"
 
 repositories {
-	jcenter()
-	maven { url "https://dl.bintray.com/big-boy/bigboy" }
-	jcenter()
 	mavenLocal()
+	mavenCentral()
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,7 +53,7 @@ dependencies {
 
 	swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.5'  // or Swagger Codegen V3
 
-	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.9.15'
+	testImplementation 'pl.grzeslowski.jsuplaservermock:jsupla-mock-server:0.10.0'
 	testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
 	testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
 	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.23.4'

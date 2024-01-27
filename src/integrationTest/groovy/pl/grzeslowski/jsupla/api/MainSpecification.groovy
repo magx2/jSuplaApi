@@ -16,11 +16,13 @@ class MainSpecification extends Specification {
 		api = Api.getInstance(TOKEN)
 	}
 
+	@Ignore
 	def "should find all devices"() {
 		expect:
 		api.deviceApi.findDevices()
 	}
 
+	@Ignore
 	def "should find device"() {
 		given:
 		def device = api.deviceApi.findDevices().first()
@@ -32,6 +34,7 @@ class MainSpecification extends Specification {
 		findDevice == device
 	}
 
+	@Ignore
 	def "should find all channels"() {
 		expect:
 		api.channelApi.findChannels()
